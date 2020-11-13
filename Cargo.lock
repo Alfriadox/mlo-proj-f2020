@@ -215,6 +215,7 @@ name = "mlo-proj-f2020"
 version = "0.1.0"
 dependencies = [
  "csv",
+ "lazy_static",
  "ndarray",
  "petgraph",
  "serde",

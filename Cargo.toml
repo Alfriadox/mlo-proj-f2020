@@ -18,3 +18,5 @@ serde = "1.0.117"
 # Graph representation and algorithms.
 # Also contains a CSR (sparse row matrix) representation of graphs
 petgraph = "0.5.1"
+# Lazily evaluated statics
+lazy_static = "1.4.0"

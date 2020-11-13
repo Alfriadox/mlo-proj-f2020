@@ -11,12 +11,14 @@ fn load_graph(
     delimiter: u8,
     nodes: usize,
     has_header_row: bool,
+    comment_char: Option<u8>
 ) -> CsMat<usize> {
     let mut mat = CsMatI::zero((nodes, nodes));
 
     let mut reader = ReaderBuilder::new()
         .delimiter(delimiter)
         .has_headers(has_header_row)
+        .comment(comment_char)
         .from_path(path.as_ref())
         .expect("Could not make reader for file");
 
@@ -42,13 +44,35 @@ fn spectral_count(graph: CsMat<usize>) -> usize {
     diag_sum/6
 }
 
+struct TestCase {
+    path: &'static str,
+    csv_delimiter: u8,
+    nodes: usize,
+    has_header_row: bool,
+    comment_char: Option<u8>
+}
+
+impl TestCase {
+    fn run(self) {
+        let graph = load_graph(
+            self.path,
+            self.csv_delimiter,
+            self.nodes,
+            self.has_header_row,
+            self.comment_char
+        );
+        
+    }
+}
+
 fn main() {
     let start_time = std::time::Instant::now();
     let twitch_graph = load_graph(
         "data/twitch/ES/musae_ES_edges.csv",
         b',',
         4_648,
-        true
+        true,
+        None
     );
     let twitch_count = spectral_count(twitch_graph);
     println!(
