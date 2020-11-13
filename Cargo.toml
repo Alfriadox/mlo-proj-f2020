@@ -1,9 +1,20 @@
 [package]
 name = "mlo-proj-f2020"
 version = "0.1.0"
-authors = ["Nia Calia-Bogan <acaliabogan@acaliabogan.dev>"]
+authors = [
+    "Antonia 'Nia' Calia-Bogan <acaliabogan@acaliabogan.dev>"
+]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+# N-dimentional arrays
+ndarray = "0.13.1"
+# Sparse arrays
+sprs = "0.9.2"
+# CSV parsing
+csv = "1.1.4"
+# Serialization and deserialization
+serde = "1.0.117"
+# Graph representation and algorithms.
+# Also contains a CSR (sparse row matrix) representation of graphs
+petgraph = "0.5.1"
