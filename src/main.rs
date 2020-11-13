@@ -1,8 +1,6 @@
 use std::path::Path;
-use sprs::{CsMat, CsMatI, CsMatBase};
-use petgraph::{Graph, Undirected};
+use sprs::{CsMat, CsMatI};
 use csv::{
-    Result as CsvResult,
     ReaderBuilder
 };
 
@@ -33,13 +31,29 @@ fn load_graph(
     mat
 }
 
+/// Use spectral counting to get the exact number of triangles in the graph.
+fn spectral_count(graph: CsMat<usize>) -> usize {
+    // Cube the graph's adjacency matrix.
+    let cubed: CsMat<usize> = &(&graph * &graph) * &graph;
+    // Take the diagonal sum using an iterator.
+    let diag_sum = cubed.iter()
+        .filter(|(_, (r, c))| r == c)
+        .fold(0, |acc, (item, _)| acc+item);
+    diag_sum/6
+}
 
 fn main() {
+    let start_time = std::time::Instant::now();
     let twitch_graph = load_graph(
         "data/twitch/ES/musae_ES_edges.csv",
         b',',
         4_648,
-        59_382,
         true
+    );
+    let twitch_count = spectral_count(twitch_graph);
+    println!(
+        "Spectral count of triangles in twitch graph: {}. Time: {} millis",
+        twitch_count,
+        start_time.elapsed().as_millis()
     );
 }
