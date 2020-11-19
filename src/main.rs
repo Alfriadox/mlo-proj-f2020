@@ -48,6 +48,20 @@ const DATASETS: &'static [Dataset] = &[
         has_header_row: true,
         comment_char: None
     },
+    Dataset {
+        path: "data/wikipedia/crocodile/musae_crocodile_edges.csv",
+        nodes: 11_631,
+        csv_delimiter: b',',
+        has_header_row: true,
+        comment_char: None,
+    },
+    Dataset {
+        path: "data/wikipedia/squirrel/musae_squirrel_edges.csv",
+        nodes: 5_201,
+        csv_delimiter: b',',
+        has_header_row: true,
+        comment_char: None,
+    },
     // the following datasets are extremely large and not tracked in git.
     /*
     Dataset {
@@ -81,10 +95,10 @@ fn main() {
 
     // specify the styling on algorithm testing progress bars.
     let algs_style = ProgressStyle::default_bar()
-        .template("{spinner:.blue} {prefix:65} [{elapsed_precise}] {bar:60.green} [{eta_precise}] TRIAL {pos:>}/{len}");
+        .template("{spinner:.blue} {prefix:80} [{elapsed_precise}] {bar:50.green} [{eta_precise}] TRIAL {pos:>}/{len}");
 
     let read_style = ProgressStyle::default_bar()
-        .template("{spinner:.blue} {prefix:65} [{elapsed_precise}] {bar:60.cyan} [{eta_precise}] {bytes:>}/{total_bytes} ({bytes_per_sec}) ");
+        .template("{spinner:.blue} {prefix:80} [{elapsed_precise}] {bar:50.cyan} [{eta_precise}] {bytes:>}/{total_bytes} ({bytes_per_sec}) ");
 
     // utility closure to create a progress bar for a given dataset and algorithm.
     let make_alg_bar = |ds: &Dataset, alg_name: &str| -> ProgressBar {
