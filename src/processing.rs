@@ -4,6 +4,8 @@ use crate::boilerplate::Dataset;
 use crate::TRIALS;
 use rayon::prelude::*;
 use std::io::Write;
+use indicatif::{MultiProgress, ProgressStyle, ProgressBar};
+use std::sync::Arc;
 
 /// Function to measure the runtime of an algorithm on a given input.
 ///
@@ -36,30 +38,23 @@ impl AlgorithmBenchmark {
     /// This method is parameterized over `I`, the input type passed to the
     /// algorithm.
     ///
-    /// `alg_name` should be a string describing the algorithm's name. This is
-    /// only used for printing status messages.
+    /// `prefix` should be a string describing the algorithm's name and the
+    /// dataset. This is only used for printing the progress bar.
     pub fn run<I>(
-        alg_name: String,
+        progress_bar: ProgressBar,
         alg: fn(&I) -> TriangleEstimate,
         input: &I,
     ) -> Self
     where I: Sync
     {
-        // for each trial (in parallel)
-        let data = (0..TRIALS)
-            .map(|trial_num| {
-                println!("[{}] Running trial {:03} of {:03}...", alg_name, trial_num+1, TRIALS);
-                // run the algorithm and measure runtime
-                let result = time(alg, input);
-
-                println!("[{}] Trial {} of {} complete in {} ms. (returned {})",
-                         alg_name, trial_num+1, TRIALS, result.0.as_millis(), result.1);
-
-                // return the produced result
-                result
-            })
+        // for each trial
+        let data = progress_bar.wrap_iter(0..TRIALS)
+            // run the algorithm for each trial, collecting results.
+            .map(|_| time(alg, input))
             // collect into a list
             .collect();
+
+        progress_bar.finish();
 
         Self { inner: data }
     }

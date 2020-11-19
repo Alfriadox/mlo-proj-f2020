@@ -44,22 +44,18 @@ pub enum RandomVector {
 
 /// A structure to store the parameters and input used in the
 /// TraceTriangle algorithm.
-///
-/// This structure is parameterized over lifetime `'graph` which
-/// references the lifetime for which the input matrix is valid.
-pub struct TraceTriangle<'graph> {
+pub struct TraceTriangle {
     /// Which random vector generation method to use.
     pub random_vector_variant: RandomVector,
     /// The seed (if any) to seed the random number generator with.
     pub seed: Option<u64>,
     /// The gamma value specified in the algorithm.
     pub gamma: f64,
-    /// A reference (with lifetime `'graph`) to the adjacency matrix of the
-    /// undirected graph to operate on.
-    pub graph: &'graph Graph,
+    /// The adjacency matrix of the undirected graph to operate on.
+    pub graph: Graph,
 }
 
-impl<'graph> TraceTriangle<'graph> {
+impl TraceTriangle {
     /// Run the TraceTriangle algorithm using the parameters and input stored
     /// in `self`.
     ///

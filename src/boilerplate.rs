@@ -1,10 +1,13 @@
-use sprs::{CsMatI};
+use sprs::{CsMatI, CsMat};
 use csv::ReaderBuilder;
 use std::time::Instant;
 use crate::Graph;
+use indicatif::ProgressBar;
+use std::fs::File;
 
 /// A reference to a csv file in the file system, with information specific
 /// to that file that determines how it is parsed.
+#[derive(Debug)]
 pub struct Dataset {
     /// The file's path on the filesystem.
     pub path: &'static str,
@@ -34,37 +37,43 @@ impl Dataset {
     ///
     /// This function will panic if `self.nodes` is less than the actual number
     /// of nodes (if any row contains a number greater than or equal to `self.nodes`).
-    pub fn load(&self) -> Graph {
+    pub fn load(&self, progress_bar: ProgressBar) -> Graph {
         // Get the start time.
         let start_time = Instant::now();
 
         // The adjacency matrix should be a square matrix of size NxN.
         let shape = (self.nodes, self.nodes);
-        let mut mat: Graph = CsMatI::zero(shape);
+        // we use bytes here until we do the transpose at the end.
+        let mut mat: CsMat<u8> = CsMatI::zero(shape);
+
+        let file_reader = File::open(self.path)
+            .expect("Could not open file");
 
         // construct the CSV reader.
         let mut reader = ReaderBuilder::new()
             .delimiter(self.csv_delimiter)
             .has_headers(self.has_header_row)
             .comment(self.comment_char)
-            .from_path(self.path)
-            .expect("Could not make CSV reader");
+            // wrap the progress bar here
+            .from_reader(progress_bar.wrap_read(file_reader));
 
         // for each record in the CSV file, add the appropriate edge in the graph.
         for record in reader.deserialize() {
             // get the next record.
             let (a, b): (usize, usize) = record.expect("Bad record");
 
-            // since the graph is undirected, we set two cells in the adjacency
-            // matrix.
-            mat.insert(a, b, true);
-            mat.insert(b, a, true);
+            // Set the edge in the adjacency matrix.
+            mat.insert(a, b, 1);
         }
 
-        // let the user know that we finished reading the file (and note how long it took).
-        println!("Loaded {} in {}ms.", self.path, start_time.elapsed().as_millis());
+        // add the adjacency matrix to the transpose of itself to add
+        // all of the opposing edges.
+        mat = &mat + &mat.transpose_view();
+
+        // finish the progress bar when we are done reading.
+        progress_bar.finish();
 
         // return the created matrix.
-        return mat;
+        return mat.map(|e| if *e == 0 {false} else {true});
     }
 }

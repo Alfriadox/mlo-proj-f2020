@@ -22,4 +22,6 @@ rayon = "1.5.0"
 rand = "0.7.3"          # Core RNG traits and types
 rand_isaac = "0.2.0"    # Isaac64 Random Number Generator
 # Terminal indicators
-idicatif = "0.15.0"
+indicatif = {version = "0.15.0", features = ["rayon"]}
+# Lazily evaluated statics
+lazy_static = "1"
