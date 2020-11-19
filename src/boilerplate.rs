@@ -57,8 +57,8 @@ impl Dataset {
 
             // since the graph is undirected, we set two cells in the adjacency
             // matrix.
-            mat.insert(a, b, 1.);
-            mat.insert(b, a, 1.);
+            mat.insert(a, b, true);
+            mat.insert(b, a, true);
         }
 
         // let the user know that we finished reading the file (and note how long it took).

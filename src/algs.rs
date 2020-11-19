@@ -7,6 +7,8 @@ use ndarray_rand::RandomExt;
 use ndarray::{Array, Array1};
 use ndarray_rand::rand_distr::{Bernoulli, StandardNormal};
 use crate::Graph;
+use sprs::{CsMatI, CsMat};
+use std::ops::Div;
 
 /// Function to measure the runtime of an algorithm on a given input.
 ///
@@ -29,19 +31,21 @@ where F: FnOnce(I) -> O {
 /// `graph` should be a reference to the adjacency matrix of the graph.
 ///
 /// Returns the number of triangles in the graph as an unsigned integer.
-pub fn spectral_count(graph: &Graph) -> f64 {
+pub fn spectral_count(graph: &Graph) -> u32 {
+    // Convert the cell type from booleans to unsigned integers.
+    let int_graph: CsMatI<u32, usize> = graph.map(|c| if *c {1} else {0});
     // Cube the graph's adjacency matrix.
-    let cubed: Graph = &(graph * graph) * graph;
+    let cubed: CsMatI<u32, usize> = &(&int_graph * &int_graph) * &int_graph;
 
     // Take the diagonal sum using an iterator.
-    let diag_sum = cubed.iter()
+    let diag_sum: u32 = cubed.iter()
         // filter for diagonal cells only
         .filter(|(_, (r, c))| r == c)
         // take the sum
-        .fold(0f64, |acc, (item, _)| acc+item);
+        .fold(0, |acc, (item, _)| acc+item);
 
     // return the sum of the diagonal divided by 6.
-    return diag_sum/6f64;
+    return diag_sum/6;
 }
 
 /// The options available for generating random vectors in the TraceTriangle
@@ -79,7 +83,7 @@ impl<'graph> TraceTriangle<'graph> {
     /// - The random number generator cannot be created
     ///     (system dependent, very unlikely).
     ///
-    pub fn run(&self) -> f64 {
+    pub fn run(&self) -> u32 {
         // Create random number generator. We use the Isaac64 generator
         // for its speed and quality.
         let mut rng: Isaac64Rng;
@@ -98,12 +102,12 @@ impl<'graph> TraceTriangle<'graph> {
         // calculate M.
         let m = (n as f64)          // convert to 64-bit float for calculation
             .ln()                   // take the natural log
-            .powf(2.)            // square it
+            .powf(2f64)          // square it
             .mul(&self.gamma) // multiply it by gamma
-            .ceil() as u64;              // take the ceiling and convert back to integer.
+            .ceil() as u64;             // take the ceiling and convert back to integer.
 
         // iterate over [0, M-1] in parallel using rayon
-        return (0..m).into_par_iter()
+        return (0..m)
             .map(|_| {
                 // Make the x vector.
                 let x: Array1<f64> = match self.random_vector_variant {
@@ -123,8 +127,19 @@ impl<'graph> TraceTriangle<'graph> {
                     }
                 };
 
+                // map the graph from booleans to floats for multiplication.
+                let mapped: CsMat<f64> = self.graph.map(|c| if *c {1f64} else {0f64});
                 // multiply the graph by array x. This corresponds to y = Ax.
-                let y: Array1<f64> = self.graph * &(x.t());
-            });
+                let y: Array1<f64> = &mapped * &(x.t());
+                // dot y with the multiplication of the graph by y.
+                // this corresponds to (T_i = y^T A y / 6)
+                y.dot(&(&mapped * &y)) / 6f64
+            })
+            // take the sum
+            .fold(0f64, |acc, it| acc+it)
+            // divide by M to get the average
+            .div(m as f64)
+            // and then convert to an integer
+            .floor() as u32;
     }
 }

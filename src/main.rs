@@ -31,8 +31,8 @@ const DATASETS: &'static [Dataset] = &[
 ];
 
 /// The type used to represent graphs. This is currently an adjacency matrix
-/// with cells of 64-bit floating points.
-pub type Graph = CsMat<f64>;
+/// with boolean cells.
+pub type Graph = CsMat<bool>;
 
 fn main() {
     // run all of the datasets.
