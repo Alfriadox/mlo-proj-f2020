@@ -1,5 +1,10 @@
 use crate::boilerplate::Dataset;
 use sprs::CsMat;
+use crate::processing::AlgorithmBenchmark;
+use crate::algs::spectral_count;
+
+#[macro_use]
+extern crate serde;
 
 /// The boilerplate module contains boilerplate code for reading and
 /// parsing graphs from the file system.
@@ -14,7 +19,7 @@ mod algs;
 mod processing;
 
 /// The number of trials of every algorithm to run on each dataset.
-const TRIALS: usize = 10;
+pub const TRIALS: u8 = 10;
 
 /// A constant array representing the datasets to test.
 /// Add or remove entries as necessary.
@@ -34,12 +39,21 @@ const DATASETS: &'static [Dataset] = &[
 /// with boolean cells.
 pub type Graph = CsMat<bool>;
 
+/// The type used to represent triangle counts (or estimates). This is currently
+/// a 32-bit unsigned integer.
+pub type TriangleEstimate = u32;
+
 fn main() {
-    // run all of the datasets.
+    // for each of the datasets.
     DATASETS.into_iter()
         .for_each(move |dataset: &Dataset| {
             // Load the dataset from a the filesystem into an adjacency matrix.
-            let adjacency_matrix = dataset.load();
-            unimplemented!()
+            let adjacency_matrix: Graph = dataset.load();
+            let spectral_count = AlgorithmBenchmark::run(
+                format!("Spectral Count ({})", dataset.path),
+                spectral_count,
+                &adjacency_matrix
+            );
+
         })
 }

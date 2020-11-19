@@ -1,28 +1,13 @@
-use std::time::{Duration, Instant};
+
 use rand_isaac::Isaac64Rng;
 use rand::SeedableRng;
 use std::ops::Mul;
-use rayon::prelude::*;
 use ndarray_rand::RandomExt;
 use ndarray::{Array, Array1};
 use ndarray_rand::rand_distr::{Bernoulli, StandardNormal};
-use crate::Graph;
+use crate::{Graph, TriangleEstimate};
 use sprs::{CsMatI, CsMat};
 use std::ops::Div;
-
-/// Function to measure the runtime of an algorithm on a given input.
-///
-/// This function will panic if the algorithm panics.
-///
-/// This function returns a tuple of the runtime and algorithm output as
-/// (duration, output).
-pub fn time<F, I, O>(alg: F, input: I) -> (Duration, O)
-where F: FnOnce(I) -> O {
-    let start_time = Instant::now();
-    let result = alg(input);
-    let elapsed = start_time.elapsed();
-    return (elapsed, result);
-}
 
 
 /// Use spectral counting to get the exact number of triangles in an undirected
@@ -31,7 +16,7 @@ where F: FnOnce(I) -> O {
 /// `graph` should be a reference to the adjacency matrix of the graph.
 ///
 /// Returns the number of triangles in the graph as an unsigned integer.
-pub fn spectral_count(graph: &Graph) -> u32 {
+pub fn spectral_count(graph: &Graph) -> TriangleEstimate {
     // Convert the cell type from booleans to unsigned integers.
     let int_graph: CsMatI<u32, usize> = graph.map(|c| if *c {1} else {0});
     // Cube the graph's adjacency matrix.
@@ -83,7 +68,7 @@ impl<'graph> TraceTriangle<'graph> {
     /// - The random number generator cannot be created
     ///     (system dependent, very unlikely).
     ///
-    pub fn run(&self) -> u32 {
+    pub fn run(&self) -> TriangleEstimate {
         // Create random number generator. We use the Isaac64 generator
         // for its speed and quality.
         let mut rng: Isaac64Rng;
@@ -106,7 +91,7 @@ impl<'graph> TraceTriangle<'graph> {
             .mul(&self.gamma) // multiply it by gamma
             .ceil() as u64;             // take the ceiling and convert back to integer.
 
-        // iterate over [0, M-1] in parallel using rayon
+        // iterate over [0, M-1]
         return (0..m)
             .map(|_| {
                 // Make the x vector.
@@ -140,6 +125,6 @@ impl<'graph> TraceTriangle<'graph> {
             // divide by M to get the average
             .div(m as f64)
             // and then convert to an integer
-            .floor() as u32;
+            .floor() as TriangleEstimate;
     }
 }

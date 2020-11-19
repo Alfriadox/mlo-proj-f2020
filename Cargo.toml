@@ -15,9 +15,11 @@ sprs = {version = "0.9.2", features = ["multi_thread"]}
 # CSV parsing
 csv = "1.1.4"
 # Serialization and deserialization
-serde = "1"
+serde = {version = "1", features = ["derive"]}
 # Parallel computation library
 rayon = "1.5.0"
 # Random number generation
 rand = "0.7.3"          # Core RNG traits and types
 rand_isaac = "0.2.0"    # Isaac64 Random Number Generator
+# Terminal indicators
+idicatif = "0.15.0"
