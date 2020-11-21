@@ -41,6 +41,41 @@ const DATASETS: &'static [Dataset] = &[
         comment_char: None,
     },
     Dataset {
+        path: "data/twitch/ENGB/musae_ENGB_edges.csv",
+        nodes: 7_126,
+        csv_delimiter: b',',
+        has_header_row: true,
+        comment_char: None
+    },
+    Dataset {
+        path: "data/twitch/DE/musae_DE_edges.csv",
+        nodes: 9_498,
+        csv_delimiter: b',',
+        has_header_row: true,
+        comment_char: None
+    },
+    Dataset {
+        path: "data/twitch/FR/musae_FR_edges.csv",
+        nodes: 6_549,
+        csv_delimiter: b',',
+        has_header_row: true,
+        comment_char: None
+    },
+    Dataset {
+        path: "data/twitch/PTBR/musae_PTBR_edges.csv",
+        nodes: 1_912,
+        csv_delimiter: b',',
+        has_header_row: true,
+        comment_char: None
+    },
+    Dataset {
+        path: "data/twitch/RU/musae_RU_edges.csv",
+        nodes: 4_385,
+        csv_delimiter: b',',
+        has_header_row: true,
+        comment_char: None
+    },
+    Dataset {
         path: "data/wikipedia/chameleon/musae_chameleon_edges.csv",
         nodes: 2_277,
         csv_delimiter: b',',
@@ -61,23 +96,6 @@ const DATASETS: &'static [Dataset] = &[
         has_header_row: true,
         comment_char: None,
     },
-    // the following datasets are extremely large and not tracked in git.
-    /*
-    Dataset {
-        path: "data/youtube/com-youtube.ungraph.txt",
-        nodes: 1_134_890,
-        csv_delimiter: b'\t',
-        has_header_row: false,
-        comment_char: Some(b'#')
-    },
-    Dataset {
-        path: "data/friendster/com-friendster.ungraph.txt",
-        nodes: 65_608_366,
-        csv_delimiter: b'\t',
-        has_header_row: false,
-        comment_char: Some(b'#')
-    },
-     */
 ];
 
 /// The type used to represent graphs. This is currently an adjacency matrix
@@ -164,12 +182,14 @@ fn main() {
                     spectral_count,
                     &spectral_input
                 ));
-            
-            // next trace_triangle_r
+
+            // Set the gamma for TraceTriangle.
+            let gamma = 1f64;
+            // Next trace_triangle_r
             let ttr_input = TraceTriangle {
                 random_vector_variant: RandomVector::Rademacher,
                 seed: None,
-                gamma: 0.5,
+                gamma,
                 graph: adjacency_matrix.clone()
             };
             let ttr_thread =
@@ -183,7 +203,7 @@ fn main() {
             let ttn_input = TraceTriangle {
                 random_vector_variant: RandomVector::Normal,
                 seed: None,
-                gamma: 0.5,
+                gamma,
                 graph: adjacency_matrix.clone(),
             };
             let ttn_thread =
@@ -199,19 +219,34 @@ fn main() {
             let mut ttr: Vec<BenchmarkRecord> = ttr_thread
                 .join()
                 .expect("TTR failed")
-                .to_records("TraceTriangleR, gamma = 0.5", dataset.path);
+                .to_records(
+                    "TraceTriangleR",
+                    dataset.path,
+                    Some(gamma),
+                    None
+                );
             results.append(&mut ttr);
 
             let mut ttn: Vec<BenchmarkRecord> = ttn_thread
                 .join()
                 .expect("TTN failed")
-                .to_records("TraceTriangleN, gamma = 0.5", dataset.path);
+                .to_records(
+                    "TraceTriangleN",
+                    dataset.path,
+                    Some(gamma),
+                    None
+                );
             results.append(&mut ttn);
 
             let mut spectral_count: Vec<BenchmarkRecord> = spectral_thread
                 .join()
                 .expect("Spectral count failed")
-                .to_records("Spectral Count", dataset.path);
+                .to_records(
+                    "Spectral Count",
+                    dataset.path,
+                    None,
+                    None,
+                );
             results.append(&mut spectral_count);
 
             // Return the results.

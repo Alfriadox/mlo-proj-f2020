@@ -278,15 +278,45 @@ impl EigenTriangle {
     /// Function used to run the EigenTriangle algorithm on a set of inputs.
     pub fn run(&self) -> TriangleEstimate {
         // Create a list of the returned eigen values from Lanczos method.
-        let mut lambda: Vec<Vec<f64>> = Vec::new();
-        // Get the first eigenvalues at k = 1. Add this to the list of returned
-        // eigenvalues.
-        let lambda_1: Vec<f64> = self.lanczos(1);
-        lambda.push(lambda_1);
+        let mut lambda: Vec<f64>;
+        // Get the first eigenvalues at k = 1.
+        lambda = self.lanczos(1);
 
-        // Create a mutable loop variable, i, as an unsigned integer.
-        let mut i: usize = 1;
+        // Create a closure to calculate the current tolerance based on the
+        // lambda vector.
+        let calc_tol = || {
+            // Get the last (newest) eigenvalue.
+            let last_eigen_val: f64 = *lambda.last().expect("No Eigenvals.");
 
-        unimplemented!()
+            // Take the sum of the cubes of all the eigenvalues.
+            let sum_eigen_vals: f64 = lambda
+                .iter()
+                // Cube each eigenvalue.
+                .map(|ev| ev.powf(3f64))
+                // Take the sum.
+                .fold(0f64, |acc: f64, ev3: f64| acc + ev3);
+
+            // Return the absolute value of the newest eigenvalue cubed
+            // divided by the sum of the cubed eigenvalues.
+            return last_eigen_val.powf(3f64).abs() / sum_eigen_vals;
+        };
+
+        // Iterate until within tolerances.
+        while 0f64 > calc_tol() || calc_tol() < self.tolerance {
+            // Get another eigenvalue and add it to the lambda vector.
+            // This recalculates all the existing eigen values currently.
+            lambda = self.lanczos(lambda.len() + 1);
+        }
+
+        // Return 1/6 of the sum of the cubes of the eigenvalues in the
+        // lambda vector.
+        let res = (1f64/6f64) * lambda
+            .into_iter()
+            // Cube each eigen value.
+            .map(|ev| ev.powf(3f64))
+            // Take the sum of the cubed eigenvalues.
+            .fold(0f64, |acc: f64, ev3: f64| acc + ev3);
+
+        return res as TriangleEstimate;
     }
 }

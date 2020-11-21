@@ -30,14 +30,18 @@ pub struct AlgorithmBenchmark {
 pub struct BenchmarkRecord {
     /// The name of the algorithm.
     alg_name: &'static str,
-    /// The path of the dataset that the algorithm was run on.
-    ds_path: &'static str,
     /// The trial number of this algorithm on this dataset.
     trial_num: usize,
     /// The amount of time it took to run the algorithm in microseconds.
     runtime_mircosecs: u128,
     /// The returned result of the algorithm.
     result: TriangleEstimate,
+    /// The gamma value passed to TriangleTrace alg.
+    gamma: Option<f64>,
+    /// The tolerance passed to the EigenTriangle alg.
+    tol: Option<f64>,
+    /// The path of the dataset that the algorithm was run on.
+    ds_path: &'static str,
 }
 
 // F is the algorithm function type, I is the input type.
@@ -72,7 +76,13 @@ impl AlgorithmBenchmark {
 
     /// Convert this benchmark into a list of serializable records that can be saved to
     /// the CSV file.
-    pub fn to_records(&self, alg_name: &'static str, ds_path: &'static str) -> Vec<BenchmarkRecord> {
+    pub fn to_records(
+        &self,
+        alg_name: &'static str,
+        ds_path: &'static str,
+        gamma: Option<f64>,
+        tol: Option<f64>
+    ) -> Vec<BenchmarkRecord> {
         // Iterate over the stored results.
         self.inner
             .iter()
@@ -85,7 +95,9 @@ impl AlgorithmBenchmark {
                     ds_path,
                     trial_num,
                     runtime_mircosecs: runtime.as_micros(),
-                    result: *result
+                    result: *result,
+                    gamma,
+                    tol
                 }
             })
             // Collect into the output.
