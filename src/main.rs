@@ -11,8 +11,6 @@ use std::fs;
 #[macro_use]
 extern crate serde;
 
-#[macro_use]
-extern crate lazy_static;
 
 /// The boilerplate module contains boilerplate code for reading and
 /// parsing graphs from the file system.

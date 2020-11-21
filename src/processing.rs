@@ -2,7 +2,6 @@ use std::time::{Instant, Duration};
 use crate::TriangleEstimate;
 use crate::boilerplate::Dataset;
 use crate::TRIALS;
-use rayon::prelude::*;
 use std::io::Write;
 use indicatif::{MultiProgress, ProgressStyle, ProgressBar};
 use std::sync::Arc;
@@ -26,6 +25,7 @@ pub fn time<F, I, O>(alg: F, input: I) -> (Duration, O)
 #[derive(Clone, Debug, Serialize, Deserialize, Default)]
 pub struct AlgorithmBenchmark {
     /// A list of the time and output from each trial.
+    #[serde(flatten)]
     inner: Vec<(Duration, TriangleEstimate)>
 }
 
@@ -57,15 +57,5 @@ impl AlgorithmBenchmark {
         progress_bar.finish();
 
         Self { inner: data }
-    }
-
-    /// Get the mean duration and estimated triangle count.
-    pub fn mean(&self) -> (Duration, TriangleEstimate) {
-        let n = self.inner.len() as u32;
-        let sum = self.inner.iter()
-            .fold(
-                (Duration::from_secs(0), 0),
-                |acc, it| (acc.0 + it.0, acc.1 + it.1));
-        (sum.0 / n , sum.1 / n)
     }
 }
