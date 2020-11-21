@@ -8,7 +8,7 @@ use ndarray_rand::rand_distr::{Bernoulli, StandardNormal};
 use crate::{Graph, TriangleEstimate};
 use sprs::{CsMatI, CsMat};
 use std::ops::Div;
-use nalgebra::{DMatrix, Matrix, DVector};
+use nalgebra::{DMatrix};
 
 
 /// Use spectral counting to get the exact number of triangles in an undirected

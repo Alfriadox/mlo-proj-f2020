@@ -1,10 +1,7 @@
 use std::time::{Instant, Duration};
 use crate::TriangleEstimate;
-use crate::boilerplate::Dataset;
 use crate::TRIALS;
-use std::io::Write;
-use indicatif::{MultiProgress, ProgressStyle, ProgressBar};
-use std::sync::Arc;
+use indicatif::{ProgressBar};
 
 /// Function to measure the runtime of an algorithm on a given input.
 ///
@@ -25,8 +22,22 @@ pub fn time<F, I, O>(alg: F, input: I) -> (Duration, O)
 #[derive(Clone, Debug, Serialize, Deserialize, Default)]
 pub struct AlgorithmBenchmark {
     /// A list of the time and output from each trial.
-    #[serde(flatten)]
     inner: Vec<(Duration, TriangleEstimate)>
+}
+
+/// Serializable benchmark record that can be passed to the CSV writer.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct BenchmarkRecord {
+    /// The name of the algorithm.
+    alg_name: &'static str,
+    /// The path of the dataset that the algorithm was run on.
+    ds_path: &'static str,
+    /// The trial number of this algorithm on this dataset.
+    trial_num: usize,
+    /// The amount of time it took to run the algorithm in microseconds.
+    runtime_mircosecs: u128,
+    /// The returned result of the algorithm.
+    result: TriangleEstimate,
 }
 
 // F is the algorithm function type, I is the input type.
@@ -58,4 +69,27 @@ impl AlgorithmBenchmark {
 
         Self { inner: data }
     }
+
+    /// Convert this benchmark into a list of serializable records that can be saved to
+    /// the CSV file.
+    pub fn to_records(&self, alg_name: &'static str, ds_path: &'static str) -> Vec<BenchmarkRecord> {
+        // Iterate over the stored results.
+        self.inner
+            .iter()
+            // Enumerate the iteration.
+            .enumerate()
+            // Convert to BenchmarkRecords.
+            .map(|(trial_num, (runtime, result))| {
+                BenchmarkRecord {
+                    alg_name,
+                    ds_path,
+                    trial_num,
+                    runtime_mircosecs: runtime.as_micros(),
+                    result: *result
+                }
+            })
+            // Collect into the output.
+            .collect()
+    }
 }
+

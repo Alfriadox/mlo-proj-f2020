@@ -1,12 +1,13 @@
 use crate::boilerplate::Dataset;
 use sprs::CsMat;
-use crate::processing::AlgorithmBenchmark;
+use crate::processing::{AlgorithmBenchmark, BenchmarkRecord};
 use crate::algs::{spectral_count, TraceTriangle, RandomVector};
-use rayon::prelude::*;
 use indicatif::{MultiProgress, ProgressStyle, ProgressBar};
 use std::thread;
-use std::sync::Arc;
 use std::fs;
+use csv::Writer;
+use std::thread::JoinHandle;
+use std::fs::File;
 
 #[macro_use]
 extern crate serde;
@@ -108,6 +109,9 @@ fn main() {
         // set the bar's prefix to reference the dataset and algorithm name.
         bar.set_prefix(format!("{} ({}) (N: {})", ds.path, alg_name, ds.nodes).as_str());
 
+        // set the bar to automatically tick every 300 ms.
+        bar.enable_steady_tick(200);
+
         // return the bar.
         bar
     };
@@ -133,6 +137,9 @@ fn main() {
         bar
     };
 
+    // Create a list of thread handles to receive results from on completion.
+    let mut threads: Vec<JoinHandle<Vec<BenchmarkRecord>>> = Vec::with_capacity(DATASETS.len());
+
     for dataset in DATASETS {
         // make a progress bar for the file reading
         let io_bar = make_fs_bar(dataset);
@@ -143,8 +150,8 @@ fn main() {
         // make bar for trace_triangles using the Normal/ gaussian method.
         let ttn_bar = make_alg_bar(dataset, "TraceTrianglesN");
 
-        // spawn a child thread to operate on the dataset.
-        thread::spawn(move || {
+        // Spawn a child thread to operate on the dataset.
+        let join_handle: JoinHandle<Vec<BenchmarkRecord>> = thread::spawn(move || {
             // Load the dataset from a the filesystem into an adjacency matrix.
             let adjacency_matrix: Graph = dataset.load(io_bar);
 
@@ -186,21 +193,49 @@ fn main() {
                     &ttn_input
                 ));
             
-            // join the spawned threads
-            let spectral_count = spectral_thread
+            // Join the spawned threads. Convert the results to serializable
+            // records, and collect all of those into one list.
+            let mut results: Vec<BenchmarkRecord> = Vec::new();
+            let mut ttr: Vec<BenchmarkRecord> = ttr_thread
                 .join()
-                .expect("Spectral count failed");
+                .expect("TTR failed")
+                .to_records("TraceTriangleR, gamma = 0.5", dataset.path);
+            results.append(&mut ttr);
 
-            let ttr = ttr_thread
+            let mut ttn: Vec<BenchmarkRecord> = ttn_thread
                 .join()
-                .expect("TTR failed");
+                .expect("TTN failed")
+                .to_records("TraceTriangleN, gamma = 0.5", dataset.path);
+            results.append(&mut ttn);
 
-            let ttn = ttn_thread
+            let mut spectral_count: Vec<BenchmarkRecord> = spectral_thread
                 .join()
-                .expect("TTN failed");
+                .expect("Spectral count failed")
+                .to_records("Spectral Count", dataset.path);
+            results.append(&mut spectral_count);
+
+            // Return the results.
+            results
         });
+
+        // Add the join handle to the list of threads.
+        threads.push(join_handle);
     }
 
-    // wait for all status bars on the multi-bar to complete.
+    // Wait for all status bars on the multi-bar to complete.
     multibar.join().unwrap();
+
+    // Collect all the results from child threads anc save them into a CSV file.
+    let mut output: Writer<File> = Writer::from_path("results.csv")
+        .expect("Could not make output file.");
+    for results_thread in threads {
+        let results: Vec<BenchmarkRecord> = results_thread.join()
+            .expect("Could not join results thread.");
+
+        // Write each result to the CSV file.
+        for result in results {
+            output.serialize(result)
+                .expect("Could not serialize record.");
+        }
+    }
 }

@@ -1,6 +1,5 @@
 use sprs::{CsMatI, CsMat};
 use csv::ReaderBuilder;
-use std::time::Instant;
 use crate::Graph;
 use indicatif::ProgressBar;
 use std::fs::File;
@@ -38,9 +37,6 @@ impl Dataset {
     /// This function will panic if `self.nodes` is less than the actual number
     /// of nodes (if any row contains a number greater than or equal to `self.nodes`).
     pub fn load(&self, progress_bar: ProgressBar) -> Graph {
-        // Get the start time.
-        let start_time = Instant::now();
-
         // The adjacency matrix should be a square matrix of size NxN.
         let shape = (self.nodes, self.nodes);
         // we use bytes here until we do the transpose at the end.
