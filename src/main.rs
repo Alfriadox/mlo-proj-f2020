@@ -216,10 +216,9 @@ fn main() {
                 ));
 
             // Lastly EigenTriangle.
-            let tol = 0.01;
+            let max_iters: usize = 100;
             let eigen_input = EigenTriangle {
-                seed: None,
-                tolerance: tol,
+                maximum_iterations: max_iters,
                 graph: adjacency_matrix.clone()
             };
             let eigen_thread =
@@ -262,7 +261,7 @@ fn main() {
                     "EigenTriangle",
                     dataset.path,
                     None,
-                    Some(tol)
+                    Some(max_iters)
                 );
             results.append(&mut eigen);
 

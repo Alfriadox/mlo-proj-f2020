@@ -38,8 +38,8 @@ pub struct BenchmarkRecord {
     result: TriangleEstimate,
     /// The gamma value passed to TriangleTrace alg.
     gamma: Option<f64>,
-    /// The tolerance passed to the EigenTriangle alg.
-    tol: Option<f64>,
+    /// The iterations parameter passed to the EigenTriangle alg.
+    max_iters: Option<usize>,
     /// The path of the dataset that the algorithm was run on.
     ds_path: &'static str,
 }
@@ -81,7 +81,7 @@ impl AlgorithmBenchmark {
         alg_name: &'static str,
         ds_path: &'static str,
         gamma: Option<f64>,
-        tol: Option<f64>
+        max_iters: Option<usize>
     ) -> Vec<BenchmarkRecord> {
         // Iterate over the stored results.
         self.inner
@@ -97,7 +97,7 @@ impl AlgorithmBenchmark {
                     runtime_mircosecs: runtime.as_micros(),
                     result: *result,
                     gamma,
-                    tol
+                    max_iters
                 }
             })
             // Collect into the output.
