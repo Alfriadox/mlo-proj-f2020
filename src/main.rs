@@ -216,7 +216,7 @@ fn main() {
                 ));
 
             // Lastly EigenTriangle.
-            let max_iters: usize = 100;
+            let max_iters: usize = 20;
             let eigen_input = EigenTriangle {
                 maximum_iterations: max_iters,
                 graph: adjacency_matrix.clone()
