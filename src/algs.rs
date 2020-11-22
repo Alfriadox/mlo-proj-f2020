@@ -144,7 +144,13 @@ impl EigenTriangle {
         // Convert the adjacency matrix of the graph to a dense 64-bit float
         // matrix to pass it to the Lanczos implementation.
         let a: DMatrix<f64> =
-            DMatrix::from_fn(n,n, |row, col| if self.graph[[row, col]] {1f64} else {0f64});
+            DMatrix::from_fn(
+                n,
+                n,
+                |row, col| self.graph
+                    .get(row, col)
+                    .map(|e| if *e {1f64} else {0f64})
+                    .unwrap_or(0f64));
 
         // Execute lanczos algorithm to get the eigenvalues of the adjacency
         // matrix.
