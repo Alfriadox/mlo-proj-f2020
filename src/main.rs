@@ -269,7 +269,7 @@ fn main() {
                 .join()
                 .expect("Spectral count failed")
                 .to_records(
-                    "Spectral Count",
+                    "SpectralCount",
                     dataset.path,
                     None,
                     None,
