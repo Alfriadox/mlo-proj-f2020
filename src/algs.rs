@@ -302,14 +302,9 @@ impl EigenTriangle {
 
         // Iterate until within tolerances.
         loop {
-            // Debugging code.
-            eprintln!("Iteration {}:\n T: {}", j, t);
-
             // Calculate eigenvalues.
             let eigen_decomp: SymmetricEigen<f64, Dynamic> = t.symmetric_eigen();
             let eigen_vals: &DVector<f64> = &eigen_decomp.eigenvalues;
-
-            eprintln!("Eigenvalues: {:?}", eigen_vals);
 
             // Calculate the current tolerance value.
             // Get the newest eigenvalue.
@@ -323,9 +318,7 @@ impl EigenTriangle {
             // Divide the absolute value of the cube of lambda_j by
             // the sum of the cubes of current eigenvalues.
             current_tol = lambda_j.powf(3f64).abs() / sum_cubed_eigenvalues;
-
-            eprintln!("Calculated tolerance: {}", current_tol);
-
+            
             // Check if we are within tolerances.
             if 0f64 <= current_tol && current_tol <= self.tolerance {
                 // Return 1/6 of the sum of the cubes of the eigenvalues.

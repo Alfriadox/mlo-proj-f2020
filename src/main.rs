@@ -26,7 +26,7 @@ mod algs;
 mod processing;
 
 /// The number of trials of every algorithm to run on each dataset.
-pub const TRIALS: u8 = 1;
+pub const TRIALS: u8 = 10;
 
 /// A constant array representing the datasets to test.
 /// Add or remove entries as necessary.
@@ -40,7 +40,7 @@ const DATASETS: &'static [Dataset] = &[
         has_header_row: true,
         comment_char: None,
     },
-    /*Dataset {
+    Dataset {
         path: "data/twitch/ENGB/musae_ENGB_edges.csv",
         nodes: 7_126,
         csv_delimiter: b',',
@@ -95,7 +95,7 @@ const DATASETS: &'static [Dataset] = &[
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None,
-    },*/
+    },
 ];
 
 /// The type used to represent graphs. This is currently an adjacency matrix
@@ -270,7 +270,7 @@ fn main() {
                 .join()
                 .expect("Spectral count failed")
                 .to_records(
-                    "Spectral Count",
+                    "SpectralCount",
                     dataset.path,
                     None,
                     None,
@@ -286,7 +286,7 @@ fn main() {
     }
 
     // Wait for all status bars on the multi-bar to complete.
-    //multibar.join().unwrap();
+    multibar.join().unwrap();
 
     // Collect all the results from child threads anc save them into a CSV file.
     let mut output: Writer<File> = Writer::from_path("results.csv")
