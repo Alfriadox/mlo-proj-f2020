@@ -31,7 +31,7 @@ pub struct BenchmarkRecord {
     /// The name of the algorithm.
     alg_name: &'static str,
     /// The trial number of this algorithm on this dataset.
-    trial_num: usize,
+    trial_num: String,
     /// The amount of time it took to run the algorithm in microseconds.
     runtime_mircosecs: u128,
     /// The returned result of the algorithm.
@@ -93,7 +93,7 @@ impl AlgorithmBenchmark {
                 BenchmarkRecord {
                     alg_name,
                     ds_path,
-                    trial_num,
+                    trial_num: format!("{}", trial_num),
                     runtime_mircosecs: runtime.as_micros(),
                     result: *result,
                     gamma,

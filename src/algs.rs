@@ -8,7 +8,7 @@ use ndarray_rand::rand_distr::{Bernoulli, StandardNormal};
 use crate::{Graph, TriangleEstimate};
 use sprs::{CsMatI, CsMat};
 use std::ops::Div;
-use nalgebra::{DMatrix};
+use nalgebra::{DMatrix, DVector, SymmetricEigen, Dynamic};
 
 
 /// Use spectral counting to get the exact number of triangles in an undirected
@@ -139,14 +139,76 @@ pub struct EigenTriangle {
 impl EigenTriangle {
     /// Lanczos algorithm implementation.
     ///
-    /// This function take a reference to the input parameters of the
-    /// EigenTriangle algorithm form of a reference to self and an
-    /// unsigned integer, k.
+    /// Returns tuple containing `(v_j+1, alpha_j, beta_j+1)`.
     ///
-    /// This method may panic if the random number generator panics.
-    ///
-    /// This method should return k eigenvalues as 64-bit floats.
-    fn lanczos(&self, k: usize) -> Vec<f64> {
+    /// May return `None` if an invalid/bad condition is encountered.
+    /// This indicates the need to restart the EigenTriangle algorithm.
+    fn lanczos(
+        // Reference to the input parameters passed to the parent
+        // EigenTriangle algorithm.
+        &self,
+        // Reference to the adjacency matrix of the graph converted from
+        // booleans to unsigned bytes to operate on.
+        a: &CsMat<f64>,
+        // Reference to v_j-1.
+        vj_prev: &Array1<f64>,
+        // Reference to v_j.
+        vj: &Array1<f64>,
+        // Copy of beta_j value.
+        beta_j: f64,
+        // Mutable reference to the random number generator.
+        rng: &mut Isaac64Rng
+    ) -> Option<(Array1<f64>, f64, f64)> {
+        // Get the number of vertices, N.
+        let n = a.shape().0;
+
+        // Calculate w_prime_j.
+        let w_prime_j: Array1<f64> = a * vj - beta_j*vj_prev;
+
+        // Calculate alpha_j as defined in the algorithm spec.
+        // This inner product is calculated using a dot product since
+        // both arguments are euclidean vectors.
+        let alpha_j: f64 = w_prime_j.dot(vj);
+
+        // Calculate w_j as defined in the algorithm spec.
+        let wj: Array1<f64> = w_prime_j - alpha_j*vj;
+
+        // If w_j is zero (or sufficiently close), we need to restart.
+        if wj.iter().all(|ev| ev.abs() <= f64::EPSILON) {
+            return None;
+        }
+
+        // Calculate beta_j+1 as defined in the algorithm spec.
+        // Take the euclidean norm of w_j by dotting it with itself and
+        // taking the square root of the result.
+        let beta_j_next: f64 = wj.dot(&wj).sqrt();
+
+        // Calculate v_j+1 as defined in the algorithm spec.
+        let vj_next: Array1<f64>;
+        // Check if beta_j+1 is equal to zero. Since floating point equality
+        // can be finicky, we check if beta_j+1 is within an extremely small
+        // margin of zero.
+        if beta_j_next.abs() <= f64::EPSILON {
+            // If beta_j+1 is zero (or sufficiently close), select a random
+            // vector for v_j+1 using the same method used to select v_1.
+            // Generate a random vector.
+            let rand_vec: Array1<f64> = Array::random_using(n, StandardNormal, rng);
+            // Calculate euclidean norm of the random vector.
+            let norm: f64 = rand_vec.dot(&rand_vec).sqrt();
+            // Divide random vector by euclidean norm to get normalized vector.
+            vj_next = rand_vec / norm;
+        } else {
+            // If beta_j+1 is not zero, calculate v_j+1 as defined in the
+            // algorithm spec.
+            vj_next = wj / beta_j_next;
+        }
+
+        // Return the calculated values.
+        return Some((vj_next, alpha_j, beta_j_next));
+    }
+
+    /// Function used to run the EigenTriangle algorithm on a set of inputs.
+    pub fn run(&self) -> TriangleEstimate {
         // Create a random number generator.
         let mut rng: Isaac64Rng;
 
@@ -159,164 +221,150 @@ impl EigenTriangle {
             rng = Isaac64Rng::from_entropy();
         }
 
-        // Get the number of vertices, N in the graph.
-        let n: usize = self.graph.shape().0;
+        // Convert the adjacency matrix of the graph to 64-bit floats to make
+        // it easier to operate on.
+        let a: CsMat<f64> = self.graph.map(|c| if *c {1f64} else {0f64});
+        // Get the number of vertices in the graph.
+        let n: usize = a.shape().0;
 
-        // Get the sparse matrix A, the adjacency matrix of the graph
-        // converted from booleans to floating point values to operate on.
-        let a: CsMat<f64> = self.graph.map(|e| if *e { 1f64 } else { -1f64 });
+        // Seed v0 as zeros and v1 as a random normalized vector as defined in
+        // the algorithm.
+        let v0: Array1<f64> = Array::zeros(n);
+        // Create a random vector.
+        let rand_vec: Array1<f64> = Array::random_using(n, StandardNormal, &mut rng);
+        // Calculate euclidean norm of the random vector.
+        let norm: f64 = rand_vec.dot(&rand_vec).sqrt();
+        // Divide random vector by euclidean norm to get normalized vector, v_1.
+        let v1: Array1<f64> = rand_vec / norm;
 
-        // Make a list for intermediate vectors V.
-        // Vectors in V are dense vectors of length n.
-        let mut v: Vec<Array1<f64>> = Vec::with_capacity(k+2);
-        // v0 is defined as the zero vector
-        v.push(Array::zeros(n));
-        // v1 is defined as an arbitrarily vector of euclidean norm 1.
-        let v1: Array1<f64> = Array::random_using(n, StandardNormal, &mut rng);
-        // Normalize v1 so that the euclidean norm is 1.
-        // Get the euclidean norm by taking the square root of the dot product
-        // of v with itself.
-        let v1_norm: f64 = v1.dot(&v1).sqrt();
-        // Divide v by it's norm to get a scaled v1 with euclidean norm 1.
-        // Add the scaled v1 to the list V.
-        v.push(v1/v1_norm);
+        // Seed beta_1 as 0 as defined in the algorithm.
+        let beta_1: f64 = 0f64;
 
-        // List of intermediate beta values. This is indexed from 1
-        // (so subtract 1 when indexing into this list).
-        let mut beta: Vec<f64> = Vec::with_capacity(k+1);
-        // Beta 1 is defined as 0.
-        beta.push(0f64);
+        // Create j, the iterating variable through k as defined
+        // in the algorithm spec.
+        let mut j: usize = 1;
 
-        // List of intermediate alpha values. This is also indexed from 1
-        // (so subtract 1 when indexing into this list).
-        let mut alpha: Vec<f64> = Vec::with_capacity(k+1);
+        // Build T, a tri-diagonal symmetric matrix, as defined in the
+        // algorithm spec. First create an empty matrix of size KxK.
+        let mut t: DMatrix<f64> = DMatrix::zeros(j, j);
 
-        // Iterate j from 1 to k (inclusive).
-        for j in 1..(k+1) {
-            // Calculate w_prime_j as defined in the algorithm spec.
-            // First get v_j, v_j-1, and beta_j.
-            // These accesses will panic if out of bounds.
-            let vj: &Array1<f64> = v.get(j).unwrap();
-            let vj_prev: &Array1<f64> = v.get(j-1).unwrap();
-            let beta_j: f64 = beta[j-1];
-            // Calculate w_prime_j.
-            let w_prime_j: Array1<f64> = (&a * vj) - beta_j*vj_prev;
+        // Calculate the first values to put in the matrix T using Lanczos
+        // method as defined in the algorithm spec.
+        let lanczos_1: Option<(Array1<f64>, f64, f64)> =
+            self.lanczos(&a, &v0, &v1, beta_1, &mut rng);
+        // Check if lanczos failed, restart if so.
+        if lanczos_1.is_none() {
+            // Restart.
+            return self.run();
+        }
+        // We did not fail, so we should unwrap the results, and proceed.
+        let (v2, alpha_1, beta_2) = lanczos_1.unwrap();
 
-            // Calculate alpha_j as defined in the algorithm spec.
-            // This inner product is calculated using a dot product since
-            // both arguments are euclidean vectors.
-            let alpha_j: f64 = w_prime_j.dot(vj);
-            // Add the calculated alpha to the intermediate alpha list.
-            alpha.push(alpha_j);
+        // Set alpha_1 in T.
+        t[(0,0)] = alpha_1;
 
-            // Calculate w_j as defined in the algorithm spec.
-            let wj: Array1<f64> = w_prime_j - alpha_j*vj;
+        // Create reference variables to point to the parameters to pass
+        // to Lanczos method.
+        let mut vj_next: Array1<f64> = v2;
+        let mut vj: Array1<f64> = v1;
+        let mut beta_j_next: f64 = beta_2;
 
-            // Calculate beta_j+1 as defined in the algorithm spec.
-            // Take the euclidean norm of w_j by dotting it with itself and
-            // taking the square root of the result.
-            let beta_j_next: f64 = wj.dot(&wj).sqrt();
-            // Add the calculated beta to the list of betas.
-            beta.push(beta_j_next);
+        // Assume k > 2. Iterate j up to 2.
+        while j < 2 {
+            // Increment j.
+            j += 1;
 
-            // Calculate v_j+1 as defined in the algorithm spec.
-            let vj_next: Array1<f64>;
-            // Check if beta_j+1 is equal to zero. Since floating point equality
-            // can be finicky, we check if beta_j+1 is within an extremely small
-            // margin of zero.
-            if beta_j_next.abs() <= f64::EPSILON {
-                // If beta_j+1 is zero (or sufficiently close), select a random
-                // vector for v_j+1 using the same method used to select v_1.
-                // Generate a random vector.
-                let rand_vec: Array1<f64> = Array::random_using(n, StandardNormal, &mut rng);
-                // Calculate euclidean norm of the random vector.
-                let norm: f64 = rand_vec.dot(&rand_vec).sqrt();
-                // Divide random vector by euclidean norm to get normalized vector.
-                vj_next = rand_vec / norm;
-            } else {
-                // If beta_j+1 is not zero, calculate v_j+1 as defined in the
-                // algorithm spec.
-                vj_next = wj / beta_j_next;
+            // Enlarge T.
+            t = t.resize(j, j, 0f64);
+
+            // Add beta_j (previously beta_j+1) to T. Only add to the
+            // lower off-diagonal as that is the only one used in
+            // calculating eigen values.
+            t[(j-1, j-2)] = beta_j_next;
+
+            // Calculate new values from Lanczos method.
+            let lanczos_j: Option<(Array1<f64>, f64, f64)> =
+                self.lanczos(&a, &vj, &vj_next, beta_j_next, &mut rng);
+            // Check that Lanczos method didn't fail.
+            if lanczos_j.is_none() {
+                // If it did, restart.
+                return self.run();
             }
-            // Add v_j+1 to the list of vectors V.
-            v.push(vj_next);
+            // Otherwise update T, and the reference variables.
+            let (new_vj_next, alpha_j, new_beta_j_next) = lanczos_j.unwrap();
+            t[(j-1, j-1)] = alpha_j;
+            vj = vj_next;
+            vj_next = new_vj_next;
+            beta_j_next = new_beta_j_next;
         }
 
-        // Once all the vectors in V and all of the alpha and beta values have
-        // been calculated, build T, a tri-diagonal symmetric matrix, as
-        // defined in the algorithm spec.
-        // First create an empty matrix of size KxK.
-        let mut t: DMatrix<f64> = DMatrix::zeros(k, k);
-
-        // Next, add the diagonals to the matrix.
-        // We only add the center and lower diagonals as that is all that is
-        // required to do a symmetric eigen-decomposition.
-        // The center diagonal is set here using an iterator.
-        t.set_partial_diagonal(alpha.into_iter());
-
-        // Then the off-diagonal is set manually. We skip the first beta value,
-        // since the matrix T contains only beta_2 and on.
-        // Create iterator over ((row, col), beta_val) items, where (row, col)
-        // is the index into the matrix T.
-        let idx_beta_iter = (1..)
-            .zip(0..)
-            .zip(beta.into_iter().skip(1));
-        // Consume the iterator, setting the lower off-diagonal of T with
-        // beta_2 through beta_k.
-        for (index, beta_val) in idx_beta_iter {
-            t[index] = beta_val;
-        }
-
-        // Finally, calculate and return the eigenvalues of T.
-        t.symmetric_eigen()
-            .eigenvalues
-            .iter()
-            .map(|ptr: &f64| *ptr)
-            .collect()
-    }
-
-    /// Function used to run the EigenTriangle algorithm on a set of inputs.
-    pub fn run(&self) -> TriangleEstimate {
-        // Create a list of the returned eigen values from Lanczos method.
-        let mut lambda: Vec<f64>;
-        // Get the first eigenvalues at k = 1.
-        lambda = self.lanczos(1);
-
-        // Create a closure to calculate the current tolerance based on the
-        // lambda vector.
-        let calc_tol = || {
-            // Get the last (newest) eigenvalue.
-            let last_eigen_val: f64 = *lambda.last().expect("No Eigenvals.");
-
-            // Take the sum of the cubes of all the eigenvalues.
-            let sum_eigen_vals: f64 = lambda
-                .iter()
-                // Cube each eigenvalue.
-                .map(|ev| ev.powf(3f64))
-                // Take the sum.
-                .fold(0f64, |acc: f64, ev3: f64| acc + ev3);
-
-            // Return the absolute value of the newest eigenvalue cubed
-            // divided by the sum of the cubed eigenvalues.
-            return last_eigen_val.powf(3f64).abs() / sum_eigen_vals;
-        };
+        // Create a variable to store the current tolerance of the algorithm.
+        let mut current_tol: f64;
 
         // Iterate until within tolerances.
-        while 0f64 > calc_tol() || calc_tol() < self.tolerance {
-            // Get another eigenvalue and add it to the lambda vector.
-            // This recalculates all the existing eigen values currently.
-            lambda = self.lanczos(lambda.len() + 1);
+        loop {
+            // Calculate eigenvalues.
+            let eigen_decomp: SymmetricEigen<f64, Dynamic> = t.symmetric_eigen();
+            let eigen_vals: &DVector<f64> = &eigen_decomp.eigenvalues;
+
+            // Debug eigenvals.
+            dbg!(eigen_vals);
+
+            // Calculate the current tolerance value.
+            // Get the newest eigenvalue.
+            let lambda_j: f64 = eigen_vals[j-1];
+            // Sum the cubes of all eigenvalues.
+            let sum_cubed_eigenvalues: f64 = eigen_vals
+                // Cube eigenvalues.
+                .map(|ev| ev.powf(3f64))
+                // Sum cubed eigenvalues.
+                .fold(0f64, |acc, ev3| acc + ev3);
+            // Divide the absolute value of the cube of lambda_j by
+            // the sum of the cubes of current eigenvalues.
+            current_tol = lambda_j.powf(3f64).abs() / sum_cubed_eigenvalues;
+
+            // Debug the current tolerance.
+            dbg!(&current_tol);
+
+            // Check if we are within tolerances.
+            if 0f64 <= current_tol && current_tol <= self.tolerance {
+                // Return 1/6 of the sum of the cubes of the eigenvalues.
+                let res: f64 = (1f64/6f64) * eigen_vals
+                    // Cube each eigen value.
+                    .map(|ev| ev.powf(3f64))
+                    // Take the sum of the cubed eigenvalues.
+                    .fold(0f64, |acc, ev3| acc + ev3);
+
+                return res as TriangleEstimate;
+            } else {
+                // If not within tolerances, we need to iterate further.
+                // Increment j.
+                j += 1;
+
+                // Rebuild and enlarge T.
+                t = eigen_decomp.recompose();
+                t = t.resize(j, j, 0f64);
+
+                // Add beta_j (previously beta_j+1) to T. Only add to the
+                // lower off-diagonal as that is the only one used in
+                // calculating eigen values.
+                t[(j-1, j-2)] = beta_j_next;
+
+                // Calculate new values from Lanczos method.
+                let lanczos_j: Option<(Array1<f64>, f64, f64)> =
+                    self.lanczos(&a, &vj, &vj_next, beta_j_next, &mut rng);
+                // Check that Lanczos method didn't fail.
+                if lanczos_j.is_none() {
+                    // If it did, restart.
+                    return self.run();
+                }
+                // Otherwise update T, and the reference variables.
+                let (new_vj_next, alpha_j, new_beta_j_next) = lanczos_j.unwrap();
+                t[(j-1, j-1)] = alpha_j;
+                vj = vj_next;
+                vj_next = new_vj_next;
+                beta_j_next = new_beta_j_next;
+            }
         }
-
-        // Return 1/6 of the sum of the cubes of the eigenvalues in the
-        // lambda vector.
-        let res = (1f64/6f64) * lambda
-            .into_iter()
-            // Cube each eigen value.
-            .map(|ev| ev.powf(3f64))
-            // Take the sum of the cubed eigenvalues.
-            .fold(0f64, |acc: f64, ev3: f64| acc + ev3);
-
-        return res as TriangleEstimate;
     }
 }

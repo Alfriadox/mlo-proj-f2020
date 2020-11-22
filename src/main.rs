@@ -1,7 +1,7 @@
 use crate::boilerplate::Dataset;
 use sprs::CsMat;
 use crate::processing::{AlgorithmBenchmark, BenchmarkRecord};
-use crate::algs::{spectral_count, TraceTriangle, RandomVector};
+use crate::algs::{spectral_count, TraceTriangle, RandomVector, EigenTriangle};
 use indicatif::{MultiProgress, ProgressStyle, ProgressBar};
 use std::thread;
 use std::fs;
@@ -167,6 +167,8 @@ fn main() {
         let ttr_bar = make_alg_bar(dataset, "TraceTrianglesR");
         // make bar for trace_triangles using the Normal/ gaussian method.
         let ttn_bar = make_alg_bar(dataset, "TraceTrianglesN");
+        // Make a progress bar for the EigenTriangle algorithm.
+        let eigen_bar = make_alg_bar(dataset, "EigenTriangle");
 
         // Spawn a child thread to operate on the dataset.
         let join_handle: JoinHandle<Vec<BenchmarkRecord>> = thread::spawn(move || {
@@ -212,6 +214,21 @@ fn main() {
                     TraceTriangle::run,
                     &ttn_input
                 ));
+
+            // Lastly EigenTriangle.
+            let tol = 1f64;
+            let eigen_input = EigenTriangle {
+                seed: None,
+                tolerance: tol,
+                graph: adjacency_matrix.clone()
+            };
+            let eigen_thread =
+                thread::spawn(move || AlgorithmBenchmark::run(
+                    eigen_bar,
+                    EigenTriangle::run,
+                    &eigen_input
+                ));
+
             
             // Join the spawned threads. Convert the results to serializable
             // records, and collect all of those into one list.
@@ -238,6 +255,17 @@ fn main() {
                 );
             results.append(&mut ttn);
 
+            let mut eigen: Vec<BenchmarkRecord> = eigen_thread
+                .join()
+                .expect("EigenTriangle failed")
+                .to_records(
+                    "EigenTriangle",
+                    dataset.path,
+                    None,
+                    Some(tol)
+                );
+            results.append(&mut eigen);
+
             let mut spectral_count: Vec<BenchmarkRecord> = spectral_thread
                 .join()
                 .expect("Spectral count failed")
@@ -258,7 +286,7 @@ fn main() {
     }
 
     // Wait for all status bars on the multi-bar to complete.
-    multibar.join().unwrap();
+    //multibar.join().unwrap();
 
     // Collect all the results from child threads anc save them into a CSV file.
     let mut output: Writer<File> = Writer::from_path("results.csv")
