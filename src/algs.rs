@@ -277,10 +277,9 @@ impl EigenTriangle {
             // Enlarge T.
             t = t.resize(j, j, 0f64);
 
-            // Add beta_j (previously beta_j+1) to T. Only add to the
-            // lower off-diagonal as that is the only one used in
-            // calculating eigen values.
+            // Add beta_j (previously beta_j+1) to T.
             t[(j-1, j-2)] = beta_j_next;
+            t[(j-2, j-1)] = beta_j_next;
 
             // Calculate new values from Lanczos method.
             let lanczos_j: Option<(Array1<f64>, f64, f64)> =
@@ -303,12 +302,14 @@ impl EigenTriangle {
 
         // Iterate until within tolerances.
         loop {
+            // Debugging code.
+            eprintln!("Iteration {}:\n T: {}", j, t);
+
             // Calculate eigenvalues.
             let eigen_decomp: SymmetricEigen<f64, Dynamic> = t.symmetric_eigen();
             let eigen_vals: &DVector<f64> = &eigen_decomp.eigenvalues;
 
-            // Debug eigenvals.
-            dbg!(eigen_vals);
+            eprintln!("Eigenvalues: {:?}", eigen_vals);
 
             // Calculate the current tolerance value.
             // Get the newest eigenvalue.
@@ -323,8 +324,7 @@ impl EigenTriangle {
             // the sum of the cubes of current eigenvalues.
             current_tol = lambda_j.powf(3f64).abs() / sum_cubed_eigenvalues;
 
-            // Debug the current tolerance.
-            dbg!(&current_tol);
+            eprintln!("Calculated tolerance: {}", current_tol);
 
             // Check if we are within tolerances.
             if 0f64 <= current_tol && current_tol <= self.tolerance {
@@ -345,10 +345,9 @@ impl EigenTriangle {
                 t = eigen_decomp.recompose();
                 t = t.resize(j, j, 0f64);
 
-                // Add beta_j (previously beta_j+1) to T. Only add to the
-                // lower off-diagonal as that is the only one used in
-                // calculating eigen values.
+                // Add beta_j (previously beta_j+1) to T.
                 t[(j-1, j-2)] = beta_j_next;
+                t[(j-2, j-1)] = beta_j_next;
 
                 // Calculate new values from Lanczos method.
                 let lanczos_j: Option<(Array1<f64>, f64, f64)> =

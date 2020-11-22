@@ -1,0 +1,5 @@
+alg_name,trial_num,runtime_mircosecs,result,gamma,tol,ds_path
+TraceTriangleR,0,112304,194253,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,0,116388,190194,1.0,,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,0,15180,149626,,0.01,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,0,488172,200144,,,data/twitch/ES/musae_ES_edges.csv

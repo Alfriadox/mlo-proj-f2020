@@ -26,7 +26,7 @@ mod algs;
 mod processing;
 
 /// The number of trials of every algorithm to run on each dataset.
-pub const TRIALS: u8 = 10;
+pub const TRIALS: u8 = 1;
 
 /// A constant array representing the datasets to test.
 /// Add or remove entries as necessary.
@@ -40,7 +40,7 @@ const DATASETS: &'static [Dataset] = &[
         has_header_row: true,
         comment_char: None,
     },
-    Dataset {
+    /*Dataset {
         path: "data/twitch/ENGB/musae_ENGB_edges.csv",
         nodes: 7_126,
         csv_delimiter: b',',
@@ -95,7 +95,7 @@ const DATASETS: &'static [Dataset] = &[
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None,
-    },
+    },*/
 ];
 
 /// The type used to represent graphs. This is currently an adjacency matrix
@@ -216,7 +216,7 @@ fn main() {
                 ));
 
             // Lastly EigenTriangle.
-            let tol = 1f64;
+            let tol = 0.01;
             let eigen_input = EigenTriangle {
                 seed: None,
                 tolerance: tol,
