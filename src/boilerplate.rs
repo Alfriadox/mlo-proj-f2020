@@ -58,6 +58,14 @@ impl Dataset {
             // get the next record.
             let (a, b): (usize, usize) = record.expect("Bad record");
 
+            // Bounds checking.
+            if a >= mat.rows() {
+                progress_bar.println(format!("Node {} out of bounds in graph {}", a, self.path));
+            }
+            if b >= mat.cols() {
+                progress_bar.println(format!("Node {} out of bounds in graph {}", b, self.path));
+            }
+
             // Set the edge in the adjacency matrix.
             mat.insert(a, b, 1);
         }
