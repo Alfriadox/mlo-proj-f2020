@@ -26,7 +26,7 @@ mod algs;
 mod processing;
 
 /// The number of trials of every algorithm to run on each dataset.
-pub const TRIALS: u8 = 50;
+pub const TRIALS: u8 = 10;
 
 /// A constant array representing the datasets to test.
 /// Add or remove entries as necessary.
@@ -216,7 +216,7 @@ fn main() {
                 ));
 
             // Lastly EigenTriangle.
-            let max_iters: usize = 20;
+            let max_iters: usize = 10;
             let eigen_input = EigenTriangle {
                 maximum_iterations: max_iters,
                 graph: adjacency_matrix.clone()
