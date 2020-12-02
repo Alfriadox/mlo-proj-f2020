@@ -3,14 +3,15 @@ use rand_isaac::Isaac64Rng;
 use rand::SeedableRng;
 use std::ops::Mul;
 use ndarray_rand::RandomExt;
-use ndarray::{Array, Array1};
+use ndarray::{Array, Array1, Array2};
 use ndarray_rand::rand_distr::{Bernoulli, StandardNormal};
 use crate::{Graph, TriangleEstimate};
 use sprs::{CsMatI, CsMat};
 use std::ops::Div;
-use nalgebra::{DMatrix, DVector};
+use nalgebra::{DMatrix, DVector, DMatrixSlice, DVectorSlice};
 use eigenvalues::algorithms::lanczos::HermitianLanczos;
 use eigenvalues::SpectrumTarget;
+use eigenvalues::matrix_operations::MatrixOperations;
 
 
 /// Use spectral counting to get the exact number of triangles in an undirected
@@ -136,7 +137,120 @@ pub struct EigenTriangle {
     pub graph: Graph,
 }
 
+/// Wrapper around Graph to implement the Hermetian Lanczos algorithm.
+#[derive(Clone)]
+pub struct HLGraph(CsMat<f64>);
+
+impl MatrixOperations for HLGraph {
+    fn matrix_vector_prod(&self, vs: DVectorSlice<'_, f64>) -> DVector<f64> {
+        // Convert the vector to an array1 to multiply against matrix.
+        let c: Array1<f64> = vs.iter().map(|f| *f).collect();
+
+        // Multiply the matrix by the vector.
+        let multiplied: Array1<f64> = &self.0 * &c;
+
+        // Convert the result of the multiplication to a DVector.
+        let r: Vec<f64> = multiplied.iter().map(|f| *f).collect();
+        DVector::from_vec(r)
+    }
+
+    fn matrix_matrix_prod(&self, mtx: DMatrixSlice<'_, f64>) -> DMatrix<f64> {
+        // Convert the matrix into an Array2 for multiplication.
+        let c: Array2<f64> = Array2::from_shape_fn(
+            mtx.shape(),
+            |(r, c)| mtx[(r, c)]
+        );
+
+        // Multiply the matrix by the graph.
+        let multiplied: Array2<f64> = &self.0 * &c;
+
+        // Convert the multiplication result to a DMatrix and return.
+        let rvec: Vec<f64> = multiplied.iter().map(|f| *f).collect();
+        DMatrix::from_vec(multiplied.nrows(), multiplied.ncols(), rvec)
+    }
+
+    fn diagonal(&self) -> DVector<f64> {
+        // Filter and collect the diagonal cells.
+        let diag_vec: Vec<f64> = self.0.iter()
+            .filter(|(_, (row, col))| {
+                row == col
+            })
+            .map(|(v, _)| *v)
+            .collect();
+        // Return the vector.
+        DVector::from_vec(diag_vec)
+    }
+
+    fn set_diagonal(&mut self, diag: &DVector<f64>) {
+        diag
+            .iter()
+            .enumerate()
+            .for_each(|(rc, v)| {
+                self.0[[rc, rc]] = *v;
+            })
+    }
+
+    fn ncols(&self) -> usize {
+        self.0.cols()
+    }
+
+    fn nrows(&self) -> usize {
+        self.0.rows()
+    }
+}
+
 impl EigenTriangle {
+    /// Implementation of Lanczos method ported from https://docs.rs/eigenvalues/0.3.1/src/eigenvalues/algorithms/lanczos.rs.html.
+    /// And adapted for sparse matrices.
+    ///
+    /// This function takes a reference to self and uses the
+    /// adjacency matrix of the graph and the max_iterations parameter.
+    ///
+    /// This function returns a list of eigenvalues.
+    fn hermetian_lanczos(&self) -> DVector<f64> {
+        // Define the tolerance of this algorithm to be 1x10^-8.
+        let tolerance: f64 = 1E-8;
+
+        // Make vectors to store diagonal and off diagonal elements.
+        let alphas: Array1<f64> = Array1::zeros(self.maximum_iterations);
+        let betas: Array1<f64> = Array1::zeros(self.maximum_iterations - 1);
+
+        // Matrix with orthogonal vectors.
+        let mut vs: Array2<f64> = Array2::zeros(
+            (self.graph.rows(), self.maximum_iterations)
+        );
+
+        // First vector for v (random vector of euclidean length 1).
+        let rand_vec: Array1<f64> = Array::random(self.graph.rows(), &StandardNormal);
+        // Normalize the random vector.
+        let norm: f64 = rand_vec.dot(&rand_vec).sqrt();
+        let xs: Array1<f64> = rand_vec / norm;
+        // Add the normalized random vector.
+        unimplemented!()
+    }
+
+    /// Construct a tri-diagonal matrix of the alphas and betas
+    /// for the lanczos method.
+    fn construct_tridiagonal(alphas: &Array1<f64>, betas: &Array1<f64>) -> DMatrix<f64> {
+        // Get the length of the alpha vector. This will be the dimension
+        // of the returned matrix.
+        let dim: usize = alphas.len();
+        // Make a lambda function and use it to populate and return the
+        // tri-diagonal matrix.
+        let lambda = |i: usize, j: usize| {
+            if i == j {
+                alphas[i]
+            } else if i == j + 1 {
+                betas[j]
+            } else if j == i + 1 {
+                betas[i]
+            } else {
+                0f64
+            }
+        };
+        DMatrix::<f64>::from_fn(dim, dim, lambda)
+    }
+
     /// Function used to run the EigenTriangle algorithm on a set of inputs.
     pub fn run(&self) -> TriangleEstimate {
         // Get the number of vertices in the adjacency matrix of the graph.
