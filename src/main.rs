@@ -26,7 +26,7 @@ mod algs;
 mod processing;
 
 /// The number of trials of every algorithm to run on each dataset.
-pub const TRIALS: u8 = 50;
+pub const TRIALS: u8 = 10;
 
 /// A constant array representing the datasets to test.
 /// Add or remove entries as necessary.
@@ -36,6 +36,7 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/twitch/ES/musae_ES_edges.csv",
         nodes: 4_648,
+        edges: 59_382,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None,
@@ -43,6 +44,7 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/twitch/ENGB/musae_ENGB_edges.csv",
         nodes: 7_126,
+        edges: 35_324,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None
@@ -50,6 +52,7 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/twitch/DE/musae_DE_edges.csv",
         nodes: 9_498,
+        edges: 153_138,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None
@@ -57,6 +60,7 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/twitch/FR/musae_FR_edges.csv",
         nodes: 6_549,
+        edges: 112_666,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None
@@ -64,6 +68,7 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/twitch/PTBR/musae_PTBR_edges.csv",
         nodes: 1_912,
+        edges: 31_299,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None
@@ -71,6 +76,7 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/twitch/RU/musae_RU_edges.csv",
         nodes: 4_385,
+        edges: 37_304,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None
@@ -78,6 +84,7 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/wikipedia/chameleon/musae_chameleon_edges.csv",
         nodes: 2_277,
+        edges: 31_421,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None
@@ -85,6 +92,7 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/wikipedia/crocodile/musae_crocodile_edges.csv",
         nodes: 11_631,
+        edges: 170_918,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None,
@@ -92,9 +100,26 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/wikipedia/squirrel/musae_squirrel_edges.csv",
         nodes: 5_201,
+        edges: 198_493,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None,
+    },
+    Dataset {
+        path: "data/CA-GrQc/CA-GrQc.txt",
+        nodes: 5_242,
+        edges: 28_980,
+        csv_delimiter: b'\t',
+        has_header_row: false,
+        comment_char: Some(b'#')
+    },
+    Dataset {
+        path: "data/CA-AstroPh/CA-AstroPh.txt",
+        nodes: 18_772,
+        edges: 396_160,
+        csv_delimiter: b'\t',
+        has_header_row: false,
+        comment_char: Some(b'#')
     },
 ];
 
@@ -237,7 +262,7 @@ fn main() {
                 .expect("TTR failed")
                 .to_records(
                     "TraceTriangleR",
-                    dataset.path,
+                    dataset,
                     Some(gamma),
                     None
                 );
@@ -248,7 +273,7 @@ fn main() {
                 .expect("TTN failed")
                 .to_records(
                     "TraceTriangleN",
-                    dataset.path,
+                    dataset,
                     Some(gamma),
                     None
                 );
@@ -259,7 +284,7 @@ fn main() {
                 .expect("EigenTriangle failed")
                 .to_records(
                     "EigenTriangle",
-                    dataset.path,
+                    dataset,
                     None,
                     Some(max_iters)
                 );
@@ -270,7 +295,7 @@ fn main() {
                 .expect("Spectral count failed")
                 .to_records(
                     "SpectralCount",
-                    dataset.path,
+                    dataset,
                     None,
                     None,
                 );

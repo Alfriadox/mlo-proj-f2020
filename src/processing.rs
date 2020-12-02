@@ -2,6 +2,7 @@ use std::time::{Instant, Duration};
 use crate::TriangleEstimate;
 use crate::TRIALS;
 use indicatif::{ProgressBar};
+use crate::boilerplate::Dataset;
 
 /// Function to measure the runtime of an algorithm on a given input.
 ///
@@ -36,6 +37,10 @@ pub struct BenchmarkRecord {
     runtime: u128,
     /// The returned result of the algorithm.
     result: TriangleEstimate,
+    /// The actual number of edges in the dataset.
+    actual: TriangleEstimate,
+    /// The absolute difference between the estimate and the actual number.
+    diff: i64,
     /// The gamma value passed to TriangleTrace alg.
     gamma: Option<f64>,
     /// The iterations parameter passed to the EigenTriangle alg.
@@ -69,7 +74,7 @@ impl AlgorithmBenchmark {
             // collect into a list
             .collect();
 
-        progress_bar.finish();
+        progress_bar.finish_and_clear();
 
         Self { inner: data }
     }
@@ -79,7 +84,7 @@ impl AlgorithmBenchmark {
     pub fn to_records(
         &self,
         alg_name: &'static str,
-        ds_path: &'static str,
+        ds: &Dataset,
         gamma: Option<f64>,
         max_iters: Option<usize>
     ) -> Vec<BenchmarkRecord> {
@@ -92,10 +97,12 @@ impl AlgorithmBenchmark {
             .map(|(trial_num, (runtime, result))| {
                 BenchmarkRecord {
                     alg_name,
-                    ds_path,
+                    ds_path: ds.path,
                     trial_num: format!("{}", trial_num),
                     runtime: runtime.as_micros(),
                     result: *result,
+                    actual: ds.edges as TriangleEstimate,
+                    diff: (ds.edges as i64 - *result as i64).abs(),
                     gamma,
                     max_iters
                 }

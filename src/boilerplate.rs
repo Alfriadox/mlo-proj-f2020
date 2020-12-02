@@ -1,4 +1,4 @@
-use sprs::{CsMatI, CsMat};
+use sprs::{CsMatI};
 use csv::ReaderBuilder;
 use crate::Graph;
 use indicatif::ProgressBar;
@@ -15,6 +15,9 @@ pub struct Dataset {
     /// The number of nodes in the represented graph. This must be accurate
     /// for the algorithms to return accurate results.
     pub nodes: usize,
+    /// The number of edges in the represented graph. This is added directly to
+    /// the CSV file and is not used in calculations.
+    pub edges: usize,
     /// Does the CSV file have a header row with column that does not
     /// contain data?
     pub has_header_row: bool,
@@ -40,7 +43,7 @@ impl Dataset {
         // The adjacency matrix should be a square matrix of size NxN.
         let shape = (self.nodes, self.nodes);
         // we use bytes here until we do the transpose at the end.
-        let mut mat: CsMat<u8> = CsMatI::zero(shape);
+        let mut mat: Graph = CsMatI::zero(shape);
 
         let file_reader = File::open(self.path)
             .expect("Could not open file");
@@ -59,17 +62,14 @@ impl Dataset {
             let (a, b): (usize, usize) = record.expect("Bad record");
 
             // Set the edge in the adjacency matrix.
-            mat.insert(a, b, 1);
+            mat.insert(a, b, true);
+            mat.insert(b, a, true);
         }
 
-        // add the adjacency matrix to the transpose of itself to add
-        // all of the opposing edges.
-        mat = &mat + &mat.transpose_view();
+        // Finish the progress bar when we are done reading.
+        progress_bar.finish_and_clear();
 
-        // finish the progress bar when we are done reading.
-        progress_bar.finish();
-
-        // return the created matrix.
-        return mat.map(|e| if *e == 0 {false} else {true});
+        // Return the created matrix.
+        return mat;
     }
 }
