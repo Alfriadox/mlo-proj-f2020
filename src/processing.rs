@@ -1,7 +1,6 @@
 use std::time::{Instant, Duration};
 use crate::TriangleEstimate;
 use crate::TRIALS;
-use indicatif::{ProgressBar};
 use crate::boilerplate::Dataset;
 
 /// Function to measure the runtime of an algorithm on a given input.
@@ -20,8 +19,12 @@ pub fn time<F, I, O>(alg: F, input: I) -> (Duration, O)
 
 /// A structure to store the output and runtime of an algorithm over a
 /// number of trials.
-#[derive(Clone, Debug, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug)]
 pub struct AlgorithmBenchmark {
+    /// The dataset this is running on.
+    dataset: &'static Dataset,
+    /// The name of this algorithm.
+    alg_name: &'static str,
     /// A list of the time and output from each trial.
     inner: Vec<(Duration, TriangleEstimate)>
 }
@@ -57,30 +60,37 @@ impl AlgorithmBenchmark {
     /// `prefix` should be a string describing the algorithm's name and the
     /// dataset. This is only used for printing the progress bar.
     pub fn run<I>(
-        progress_bar: ProgressBar,
+        ds: &'static Dataset,
+        alg_name: &'static str,
         alg: fn(&I) -> TriangleEstimate,
         input: &I,
     ) -> Self
     where I: Sync
     {
-        // for each trial
-        let data = progress_bar.wrap_iter(0..TRIALS)
+        // For each trial
+        let data = (0..TRIALS)
+            .into_iter()
             // run the algorithm for each trial, collecting results.
-            .map(|_| time(alg, input))
+            .map(|tn| {
+                let r = time(alg, input);
+                println!("{}: Finished trial {} of {}. ({})",
+                         ds.path, tn+1, TRIALS, alg_name);
+                r
+            })
             // collect into a list
             .collect();
 
-        progress_bar.finish_and_clear();
-
-        Self { inner: data }
+        Self {
+            dataset: ds,
+            alg_name,
+            inner: data
+        }
     }
 
     /// Convert this benchmark into a list of serializable records that can be saved to
     /// the CSV file.
     pub fn to_records(
         &self,
-        alg_name: &'static str,
-        ds: &Dataset,
         gamma: Option<f64>,
         max_iters: Option<usize>
     ) -> Vec<BenchmarkRecord> {
@@ -92,9 +102,9 @@ impl AlgorithmBenchmark {
             // Convert to BenchmarkRecords.
             .map(|(trial_num, (runtime, result))| {
                 BenchmarkRecord {
-                    alg_name,
-                    ds_path: ds.path,
-                    trial_num: format!("{}", trial_num),
+                    alg_name: self.alg_name,
+                    ds_path: self.dataset.path,
+                    trial_num: format!("{}", trial_num + 1),
                     runtime: runtime.as_micros(),
                     result: *result,
                     gamma,

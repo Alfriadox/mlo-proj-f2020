@@ -2,9 +2,7 @@ use crate::boilerplate::Dataset;
 use sprs::CsMat;
 use crate::processing::{AlgorithmBenchmark, BenchmarkRecord};
 use crate::algs::{spectral_count, TraceTriangle, RandomVector, EigenTriangle};
-use indicatif::{MultiProgress, ProgressStyle, ProgressBar};
 use std::thread;
-use std::fs;
 use csv::Writer;
 use std::thread::JoinHandle;
 use std::fs::File;
@@ -121,93 +119,27 @@ pub type Graph = CsMat<bool>;
 pub type TriangleEstimate = u32;
 
 fn main() {
-    // create thread aware progressbar manager.
-    let multibar = MultiProgress::new();
-
-    // specify the styling on algorithm testing progress bars.
-    let algs_style = ProgressStyle::default_bar()
-        .template("{spinner:.blue} {prefix:80} [{elapsed_precise}] {bar:50.green} [{eta_precise}] TRIAL {pos:>}/{len}");
-
-    let read_style = ProgressStyle::default_bar()
-        .template("{spinner:.blue} {prefix:80} [{elapsed_precise}] {bar:50.cyan} [{eta_precise}] {bytes:>}/{total_bytes} ({bytes_per_sec}) ");
-
-    // utility closure to create a progress bar for a given dataset and algorithm.
-    let make_alg_bar = |ds: &Dataset, alg_name: &str| -> ProgressBar {
-        // create a new progress bar on the parent multibar.
-        let bar = multibar.add(ProgressBar::new(TRIALS as u64))
-            // with the global style
-            .with_style(algs_style.clone());
-
-        // set the bar's prefix to reference the dataset and algorithm name.
-        bar.set_prefix(format!("{} ({}) (N: {})", ds.path, alg_name, ds.nodes).as_str());
-
-        // set the bar to automatically tick every 300 ms.
-        bar.enable_steady_tick(200);
-
-        // return the bar.
-        bar
-    };
-
-    // utility closure to create a progressbar for a given CSV file read.
-    let make_fs_bar = |ds: &Dataset| -> ProgressBar {
-        // get the file size.
-        let file_size = fs::metadata(ds.path)
-            .expect("Could not get file metadata.")
-            .len();
-
-        // create a new progress bar.
-        let bar = multibar.add(ProgressBar::new(file_size))
-            .with_style(read_style.clone());
-
-        // set the bar's prefix to refer to the dataset path.
-        bar.set_prefix(format!("READ {} (N: {})", ds.path, ds.nodes).as_str());
-
-        // set the bar to automatically tick every 300 ms.
-        bar.enable_steady_tick(200);
-
-        // return the created bar.
-        bar
-    };
-
     // Create a list of thread handles to receive results from on completion.
-    let mut threads: Vec<JoinHandle<Vec<JoinHandle<Vec<BenchmarkRecord>>>>> =
-        Vec::with_capacity(DATASETS.len());
+    let mut threads: Vec<JoinHandle<Vec<BenchmarkRecord>>> = Vec::with_capacity(DATASETS.len());
 
     for dataset in DATASETS {
-        // make a progress bar for the file reading
-        let io_bar = make_fs_bar(dataset);
-        // make a status bar for the spectral count.
-        let spectral_count_bar = make_alg_bar(dataset, "Spectral Count");
-        // make bar for trace_triangles using the Rademacher method.
-        let ttr_bar = make_alg_bar(dataset, "TraceTrianglesR");
-        // make bar for trace_triangles using the Normal/ gaussian method.
-        let ttn_bar = make_alg_bar(dataset, "TraceTrianglesN");
-        // Make a progress bar for the EigenTriangle algorithm.
-        let eigen_bar = make_alg_bar(dataset, "EigenTriangle");
-
         // Load the dataset from a the filesystem into an adjacency matrix.
-        let results: JoinHandle<Vec<JoinHandle<Vec<BenchmarkRecord>>>> = thread::spawn(move || {
-            let mut results: Vec<JoinHandle<Vec<BenchmarkRecord>>> =
-                Vec::with_capacity(4*TRIALS as usize);
+        let join_handle: JoinHandle<Vec<BenchmarkRecord>> = thread::spawn(move || {
+            let mut results: Vec<BenchmarkRecord> = Vec::with_capacity(4*TRIALS as usize);
 
-            let adjacency_matrix: Graph = dataset.load(io_bar);
+            let adjacency_matrix: Graph = dataset.load();
 
             // run each of the algorithms in their own thread.
             // first the spectral count.
             let spectral_input = adjacency_matrix.clone();
             let spectral_thread = thread::spawn(move || {
                 AlgorithmBenchmark::run(
-                    spectral_count_bar,
+                    dataset,
+                    "SpectralCount",
                     spectral_count,
                     &spectral_input
-                ).to_records(
-                    "Spectral Count",
-                    dataset,
-                    None,
-                    None
-                )
+                ).to_records(None, None)
             });
-            results.push(spectral_thread);
 
             // Set the gamma for TraceTriangle.
             let gamma = 1f64;
@@ -219,20 +151,15 @@ fn main() {
                 gamma,
                 graph: adjacency_matrix.clone()
             };
+
             let ttr_thread = thread::spawn(move || {
                 AlgorithmBenchmark::run(
-                    ttr_bar,
+                    dataset,
+                    "TraceTriangleR",
                     TraceTriangle::run,
                     &ttr_input
-                ).to_records(
-                    "TraceTriangleR",
-                    dataset,
-                    Some(gamma),
-                    None
-                )
+                ).to_records(Some(gamma), None)
             });
-
-            results.push(ttr_thread);
 
             // Then trace_triangle_n.
             let ttn_input = TraceTriangle {
@@ -241,20 +168,15 @@ fn main() {
                 gamma,
                 graph: adjacency_matrix.clone(),
             };
+
             let ttn_thread = thread::spawn(move || {
                 AlgorithmBenchmark::run(
-                    ttn_bar,
+                    dataset,
+                    "TraceTriangleN",
                     TraceTriangle::run,
                     &ttn_input
-                ).to_records(
-                    "TraceTriangleN",
-                    dataset,
-                    Some(gamma),
-                    None,
-                )
+                ).to_records(Some(gamma), None, )
             });
-
-            results.push(ttn_thread);
 
             // Lastly EigenTriangle.
             let max_iters: usize = 20;
@@ -262,48 +184,39 @@ fn main() {
                 maximum_iterations: max_iters,
                 graph: adjacency_matrix.clone()
             };
+
             let eigen_thread = thread::spawn(move || {
                 AlgorithmBenchmark::run(
-                    eigen_bar,
+                    dataset,
+                    "EigenTriangle",
                     EigenTriangle::run,
                     &eigen_input
-                ).to_records(
-                    "EigenTriangle",
-                    dataset,
-                    None,
-                    Some(max_iters)
-                )
+                ).to_records(None, Some(max_iters))
             });
 
-            results.push(eigen_thread);
-
             // Return the generated results.
+            results.append(&mut spectral_thread.join().expect("Spectral thread failed."));
+            results.append(&mut ttr_thread.join().expect("TTR failed"));
+            results.append(&mut ttn_thread.join().expect("TTN Failed"));
+            results.append(&mut eigen_thread.join().expect("EigenTri Failed"));
             results
         });
 
         // Add the results thread to the list of executing threads.
-        threads.push(results);
+        threads.push(join_handle);
     }
-
-    // Run the multi bar on the main thread.
-    //multibar.join().expect("Could not join multi bar.");
 
     // Collect all the results from child threads anc save them into a CSV file.
     let mut output: Writer<File> = Writer::from_path("results.csv")
         .expect("Could not make output file.");
-    for results_thread in threads {
-        let test_threads = results_thread.join()
+    for thread_handle in threads {
+        let results = thread_handle.join()
             .expect("Could not join results thread.");
 
         // Write each result to the CSV file.
-        for test_thread in test_threads {
-            let results = test_thread.join()
-                .expect("Could not complete experiment thread.");
-
-            for result in results {
-                output.serialize(result)
-                    .expect("Could not serialize record.");
-            }
+        for result in results {
+             output.serialize(result)
+                .expect("Could not serialize record.")
         }
     }
 }

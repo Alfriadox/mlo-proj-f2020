@@ -1,8 +1,8 @@
 use sprs::{CsMatI};
 use csv::ReaderBuilder;
 use crate::Graph;
-use indicatif::ProgressBar;
 use std::fs::File;
+use std::time::Instant;
 
 /// A reference to a csv file in the file system, with information specific
 /// to that file that determines how it is parsed.
@@ -36,7 +36,10 @@ impl Dataset {
     ///
     /// This function will panic if `self.nodes` is less than the actual number
     /// of nodes (if any row contains a number greater than or equal to `self.nodes`).
-    pub fn load(&self, progress_bar: ProgressBar) -> Graph {
+    pub fn load(&self) -> Graph {
+        println!("Loading {}...", self.path);
+        // Note the time at start.
+        let start = Instant::now();
         // The adjacency matrix should be a square matrix of size NxN.
         let shape = (self.nodes, self.nodes);
         // we use bytes here until we do the transpose at the end.
@@ -51,7 +54,7 @@ impl Dataset {
             .has_headers(self.has_header_row)
             .comment(self.comment_char)
             // wrap the progress bar here
-            .from_reader(progress_bar.wrap_read(file_reader));
+            .from_reader(file_reader);
 
         // for each record in the CSV file, add the appropriate edge in the graph.
         for record in reader.deserialize() {
@@ -63,8 +66,7 @@ impl Dataset {
             mat.insert(b, a, true);
         }
 
-        // Finish the progress bar when we are done reading.
-        progress_bar.finish_and_clear();
+        println!("Loaded {} in {} seconds.", self.path, start.elapsed().as_secs());
 
         // Return the created matrix.
         return mat;

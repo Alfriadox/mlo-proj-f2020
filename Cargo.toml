@@ -21,8 +21,6 @@ rayon = "1.5.0"
 # Random number generation
 rand = "0.7.3"          # Core RNG traits and types
 rand_isaac = "0.2.0"    # Isaac64 Random Number Generator
-# Terminal indicators
-indicatif = {version = "0.15.0", features = ["rayon"]}
 # Matrix algebra
 nalgebra = "0.19.0"
 # Lanczos algorithm
