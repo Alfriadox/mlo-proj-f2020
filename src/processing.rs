@@ -33,7 +33,7 @@ pub struct BenchmarkRecord {
     /// The trial number of this algorithm on this dataset.
     trial_num: String,
     /// The amount of time it took to run the algorithm in microseconds.
-    runtime_mircosecs: u128,
+    runtime: u128,
     /// The returned result of the algorithm.
     result: TriangleEstimate,
     /// The gamma value passed to TriangleTrace alg.
@@ -94,7 +94,7 @@ impl AlgorithmBenchmark {
                     alg_name,
                     ds_path,
                     trial_num: format!("{}", trial_num),
-                    runtime_mircosecs: runtime.as_micros(),
+                    runtime: runtime.as_micros(),
                     result: *result,
                     gamma,
                     max_iters

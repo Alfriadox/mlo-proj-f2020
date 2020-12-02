@@ -200,71 +200,12 @@ impl MatrixOperations for HLGraph {
 }
 
 impl EigenTriangle {
-    /// Implementation of Lanczos method ported from https://docs.rs/eigenvalues/0.3.1/src/eigenvalues/algorithms/lanczos.rs.html.
-    /// And adapted for sparse matrices.
-    ///
-    /// This function takes a reference to self and uses the
-    /// adjacency matrix of the graph and the max_iterations parameter.
-    ///
-    /// This function returns a list of eigenvalues.
-    fn hermetian_lanczos(&self) -> DVector<f64> {
-        // Define the tolerance of this algorithm to be 1x10^-8.
-        let tolerance: f64 = 1E-8;
-
-        // Make vectors to store diagonal and off diagonal elements.
-        let alphas: Array1<f64> = Array1::zeros(self.maximum_iterations);
-        let betas: Array1<f64> = Array1::zeros(self.maximum_iterations - 1);
-
-        // Matrix with orthogonal vectors.
-        let mut vs: Array2<f64> = Array2::zeros(
-            (self.graph.rows(), self.maximum_iterations)
-        );
-
-        // First vector for v (random vector of euclidean length 1).
-        let rand_vec: Array1<f64> = Array::random(self.graph.rows(), &StandardNormal);
-        // Normalize the random vector.
-        let norm: f64 = rand_vec.dot(&rand_vec).sqrt();
-        let xs: Array1<f64> = rand_vec / norm;
-        // Add the normalized random vector.
-        unimplemented!()
-    }
-
-    /// Construct a tri-diagonal matrix of the alphas and betas
-    /// for the lanczos method.
-    fn construct_tridiagonal(alphas: &Array1<f64>, betas: &Array1<f64>) -> DMatrix<f64> {
-        // Get the length of the alpha vector. This will be the dimension
-        // of the returned matrix.
-        let dim: usize = alphas.len();
-        // Make a lambda function and use it to populate and return the
-        // tri-diagonal matrix.
-        let lambda = |i: usize, j: usize| {
-            if i == j {
-                alphas[i]
-            } else if i == j + 1 {
-                betas[j]
-            } else if j == i + 1 {
-                betas[i]
-            } else {
-                0f64
-            }
-        };
-        DMatrix::<f64>::from_fn(dim, dim, lambda)
-    }
-
     /// Function used to run the EigenTriangle algorithm on a set of inputs.
     pub fn run(&self) -> TriangleEstimate {
-        // Get the number of vertices in the adjacency matrix of the graph.
-        let n: usize = self.graph.shape().0;
-        // Convert the adjacency matrix of the graph to a dense 64-bit float
-        // matrix to pass it to the Lanczos implementation.
-        let a: DMatrix<f64> =
-            DMatrix::from_fn(
-                n,
-                n,
-                |row, col| self.graph
-                    .get(row, col)
-                    .map(|e| if *e {1f64} else {0f64})
-                    .unwrap_or(0f64));
+        // Convert the adjacency matrix of the graph to a 64-bit float sparse
+        // matrix (and then wrap it in a structure) to pass it to the Lanczos
+        // implementation.
+        let a: HLGraph = HLGraph(self.graph.map(|e| if *e {1f64} else {0f64}));
 
         // Execute lanczos algorithm to get the eigenvalues of the adjacency
         // matrix.
