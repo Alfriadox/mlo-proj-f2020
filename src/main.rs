@@ -26,7 +26,7 @@ mod algs;
 mod processing;
 
 /// The number of trials of every algorithm to run on each dataset.
-pub const TRIALS: u8 = 10;
+pub const TRIALS: u8 = 50;
 
 /// A constant array representing the datasets to test.
 /// Add or remove entries as necessary.
