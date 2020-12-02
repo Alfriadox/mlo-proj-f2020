@@ -1,441 +1,401 @@
-alg_name,trial_num,runtime,result,actual,diff,gamma,max_iters,ds_path
-TraceTriangleR,0,120835,193371,59382,133989,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleR,1,247765,199770,59382,140388,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleR,2,287687,195058,59382,135676,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleR,3,219576,204654,59382,145272,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleR,4,238259,216096,59382,156714,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleR,5,194146,164236,59382,104854,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleR,6,252950,195000,59382,135618,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleR,7,263326,198159,59382,138777,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleR,8,209286,181414,59382,122032,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleR,9,231551,162437,59382,103055,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleN,0,176017,225800,59382,166418,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleN,1,172112,181748,59382,122366,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleN,2,240067,209681,59382,150299,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleN,3,341297,233863,59382,174481,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleN,4,221396,204809,59382,145427,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleN,5,201743,182849,59382,123467,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleN,6,171825,249241,59382,189859,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleN,7,238137,225944,59382,166562,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleN,8,262029,193410,59382,134028,1.0,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleN,9,201569,193078,59382,133696,1.0,,data/twitch/ES/musae_ES_edges.csv
-EigenTriangle,0,33108,173021,59382,113639,,20,data/twitch/ES/musae_ES_edges.csv
-EigenTriangle,1,39522,172330,59382,112948,,20,data/twitch/ES/musae_ES_edges.csv
-EigenTriangle,2,37963,172422,59382,113040,,20,data/twitch/ES/musae_ES_edges.csv
-EigenTriangle,3,40043,172432,59382,113050,,20,data/twitch/ES/musae_ES_edges.csv
-EigenTriangle,4,42535,172383,59382,113001,,20,data/twitch/ES/musae_ES_edges.csv
-EigenTriangle,5,24750,172496,59382,113114,,20,data/twitch/ES/musae_ES_edges.csv
-EigenTriangle,6,41582,172866,59382,113484,,20,data/twitch/ES/musae_ES_edges.csv
-EigenTriangle,7,21257,172678,59382,113296,,20,data/twitch/ES/musae_ES_edges.csv
-EigenTriangle,8,30475,172286,59382,112904,,20,data/twitch/ES/musae_ES_edges.csv
-EigenTriangle,9,34831,173163,59382,113781,,20,data/twitch/ES/musae_ES_edges.csv
-SpectralCount,0,3108787,200144,59382,140762,,,data/twitch/ES/musae_ES_edges.csv
-SpectralCount,1,2514488,200144,59382,140762,,,data/twitch/ES/musae_ES_edges.csv
-SpectralCount,2,4790976,200144,59382,140762,,,data/twitch/ES/musae_ES_edges.csv
-SpectralCount,3,4982853,200144,59382,140762,,,data/twitch/ES/musae_ES_edges.csv
-SpectralCount,4,4089869,200144,59382,140762,,,data/twitch/ES/musae_ES_edges.csv
-SpectralCount,5,5291045,200144,59382,140762,,,data/twitch/ES/musae_ES_edges.csv
-SpectralCount,6,7094975,200144,59382,140762,,,data/twitch/ES/musae_ES_edges.csv
-SpectralCount,7,5466247,200144,59382,140762,,,data/twitch/ES/musae_ES_edges.csv
-SpectralCount,8,4081177,200144,59382,140762,,,data/twitch/ES/musae_ES_edges.csv
-SpectralCount,9,4721497,200144,59382,140762,,,data/twitch/ES/musae_ES_edges.csv
-TraceTriangleR,0,153663,33256,35324,2068,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleR,1,166881,29720,35324,5604,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleR,2,295970,26704,35324,8620,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleR,3,205578,27175,35324,8149,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleR,4,192566,31307,35324,4017,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleR,5,199866,23607,35324,11717,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleR,6,218380,29668,35324,5656,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleR,7,180013,32223,35324,3101,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleR,8,185885,25629,35324,9695,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleR,9,149964,27526,35324,7798,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleN,0,255973,28005,35324,7319,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleN,1,175370,27139,35324,8185,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleN,2,190063,29872,35324,5452,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleN,3,178408,29846,35324,5478,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleN,4,149038,31522,35324,3802,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleN,5,144619,25482,35324,9842,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleN,6,228832,28180,35324,7144,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleN,7,228413,29344,35324,5980,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleN,8,174017,30123,35324,5201,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleN,9,178661,30329,35324,4995,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
-EigenTriangle,0,93042,17621,35324,17703,,20,data/twitch/ENGB/musae_ENGB_edges.csv
-EigenTriangle,1,71625,18586,35324,16738,,20,data/twitch/ENGB/musae_ENGB_edges.csv
-EigenTriangle,2,44680,17057,35324,18267,,20,data/twitch/ENGB/musae_ENGB_edges.csv
-EigenTriangle,3,66427,17949,35324,17375,,20,data/twitch/ENGB/musae_ENGB_edges.csv
-EigenTriangle,4,10173,18557,35324,16767,,20,data/twitch/ENGB/musae_ENGB_edges.csv
-EigenTriangle,5,55648,18485,35324,16839,,20,data/twitch/ENGB/musae_ENGB_edges.csv
-EigenTriangle,6,42433,18112,35324,17212,,20,data/twitch/ENGB/musae_ENGB_edges.csv
-EigenTriangle,7,17260,18639,35324,16685,,20,data/twitch/ENGB/musae_ENGB_edges.csv
-EigenTriangle,8,54569,18869,35324,16455,,20,data/twitch/ENGB/musae_ENGB_edges.csv
-EigenTriangle,9,38830,18797,35324,16527,,20,data/twitch/ENGB/musae_ENGB_edges.csv
-SpectralCount,0,2824564,29266,35324,6058,,,data/twitch/ENGB/musae_ENGB_edges.csv
-SpectralCount,1,1697615,29266,35324,6058,,,data/twitch/ENGB/musae_ENGB_edges.csv
-SpectralCount,2,1560801,29266,35324,6058,,,data/twitch/ENGB/musae_ENGB_edges.csv
-SpectralCount,3,1134194,29266,35324,6058,,,data/twitch/ENGB/musae_ENGB_edges.csv
-SpectralCount,4,4309108,29266,35324,6058,,,data/twitch/ENGB/musae_ENGB_edges.csv
-SpectralCount,5,2968226,29266,35324,6058,,,data/twitch/ENGB/musae_ENGB_edges.csv
-SpectralCount,6,3817288,29266,35324,6058,,,data/twitch/ENGB/musae_ENGB_edges.csv
-SpectralCount,7,2286276,29266,35324,6058,,,data/twitch/ENGB/musae_ENGB_edges.csv
-SpectralCount,8,5144580,29266,35324,6058,,,data/twitch/ENGB/musae_ENGB_edges.csv
-SpectralCount,9,7174683,29266,35324,6058,,,data/twitch/ENGB/musae_ENGB_edges.csv
-TraceTriangleR,0,736119,574113,153138,420975,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleR,1,648273,433185,153138,280047,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleR,2,655471,687608,153138,534470,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleR,3,394112,540929,153138,387791,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleR,4,617375,637178,153138,484040,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleR,5,565549,483984,153138,330846,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleR,6,665791,543866,153138,390728,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleR,7,973322,739424,153138,586286,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleR,8,481902,578281,153138,425143,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleR,9,482452,562995,153138,409857,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleN,0,607568,577921,153138,424783,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleN,1,730962,579923,153138,426785,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleN,2,743273,758869,153138,605731,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleN,3,931669,453263,153138,300125,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleN,4,538515,573306,153138,420168,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleN,5,593762,545143,153138,392005,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleN,6,581003,636923,153138,483785,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleN,7,712237,520322,153138,367184,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleN,8,652556,777228,153138,624090,1.0,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleN,9,736126,626603,153138,473465,1.0,,data/twitch/DE/musae_DE_edges.csv
-EigenTriangle,0,104587,527377,153138,374239,,20,data/twitch/DE/musae_DE_edges.csv
-EigenTriangle,1,145865,528235,153138,375097,,20,data/twitch/DE/musae_DE_edges.csv
-EigenTriangle,2,99743,528053,153138,374915,,20,data/twitch/DE/musae_DE_edges.csv
-EigenTriangle,3,83447,527334,153138,374196,,20,data/twitch/DE/musae_DE_edges.csv
-EigenTriangle,4,50636,527804,153138,374666,,20,data/twitch/DE/musae_DE_edges.csv
-EigenTriangle,5,88731,527733,153138,374595,,20,data/twitch/DE/musae_DE_edges.csv
-EigenTriangle,6,72489,527838,153138,374700,,20,data/twitch/DE/musae_DE_edges.csv
-EigenTriangle,7,53463,528308,153138,375170,,20,data/twitch/DE/musae_DE_edges.csv
-EigenTriangle,8,107171,528211,153138,375073,,20,data/twitch/DE/musae_DE_edges.csv
-EigenTriangle,9,83864,527684,153138,374546,,20,data/twitch/DE/musae_DE_edges.csv
-SpectralCount,0,13239610,603088,153138,449950,,,data/twitch/DE/musae_DE_edges.csv
-SpectralCount,1,8928789,603088,153138,449950,,,data/twitch/DE/musae_DE_edges.csv
-SpectralCount,2,7581090,603088,153138,449950,,,data/twitch/DE/musae_DE_edges.csv
-SpectralCount,3,7052457,603088,153138,449950,,,data/twitch/DE/musae_DE_edges.csv
-SpectralCount,4,8837493,603088,153138,449950,,,data/twitch/DE/musae_DE_edges.csv
-SpectralCount,5,10725448,603088,153138,449950,,,data/twitch/DE/musae_DE_edges.csv
-SpectralCount,6,9622949,603088,153138,449950,,,data/twitch/DE/musae_DE_edges.csv
-SpectralCount,7,7143541,603088,153138,449950,,,data/twitch/DE/musae_DE_edges.csv
-SpectralCount,8,7757169,603088,153138,449950,,,data/twitch/DE/musae_DE_edges.csv
-SpectralCount,9,7692170,603088,153138,449950,,,data/twitch/DE/musae_DE_edges.csv
-TraceTriangleR,0,379359,498473,112666,385807,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleR,1,516675,476489,112666,363823,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleR,2,564118,467756,112666,355090,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleR,3,299990,459090,112666,346424,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleR,4,350752,515292,112666,402626,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleR,5,420454,460644,112666,347978,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleR,6,364561,292994,112666,180328,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleR,7,449932,427381,112666,314715,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleR,8,461746,404856,112666,292190,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleR,9,501757,378040,112666,265374,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleN,0,463740,459096,112666,346430,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleN,1,458345,400893,112666,288227,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleN,2,346106,317222,112666,204556,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleN,3,294230,536330,112666,423664,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleN,4,540152,362411,112666,249745,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleN,5,377847,653329,112666,540663,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleN,6,444219,454736,112666,342070,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleN,7,358806,574552,112666,461886,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleN,8,442803,453264,112666,340598,1.0,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleN,9,349071,401864,112666,289198,1.0,,data/twitch/FR/musae_FR_edges.csv
-EigenTriangle,0,42447,366244,112666,253578,,20,data/twitch/FR/musae_FR_edges.csv
-EigenTriangle,1,23101,365922,112666,253256,,20,data/twitch/FR/musae_FR_edges.csv
-EigenTriangle,2,25658,365984,112666,253318,,20,data/twitch/FR/musae_FR_edges.csv
-EigenTriangle,3,26913,365778,112666,253112,,20,data/twitch/FR/musae_FR_edges.csv
-EigenTriangle,4,22409,366050,112666,253384,,20,data/twitch/FR/musae_FR_edges.csv
-EigenTriangle,5,27439,366429,112666,253763,,20,data/twitch/FR/musae_FR_edges.csv
-EigenTriangle,6,22772,365800,112666,253134,,20,data/twitch/FR/musae_FR_edges.csv
-EigenTriangle,7,21456,365924,112666,253258,,20,data/twitch/FR/musae_FR_edges.csv
-EigenTriangle,8,38560,365962,112666,253296,,20,data/twitch/FR/musae_FR_edges.csv
-EigenTriangle,9,19271,365744,112666,253078,,20,data/twitch/FR/musae_FR_edges.csv
-SpectralCount,0,5534785,422694,112666,310028,,,data/twitch/FR/musae_FR_edges.csv
-SpectralCount,1,5692692,422694,112666,310028,,,data/twitch/FR/musae_FR_edges.csv
-SpectralCount,2,7539713,422694,112666,310028,,,data/twitch/FR/musae_FR_edges.csv
-SpectralCount,3,11116145,422694,112666,310028,,,data/twitch/FR/musae_FR_edges.csv
-SpectralCount,4,8904230,422694,112666,310028,,,data/twitch/FR/musae_FR_edges.csv
-SpectralCount,5,7720229,422694,112666,310028,,,data/twitch/FR/musae_FR_edges.csv
-SpectralCount,6,6876751,422694,112666,310028,,,data/twitch/FR/musae_FR_edges.csv
-SpectralCount,7,9006749,422694,112666,310028,,,data/twitch/FR/musae_FR_edges.csv
-SpectralCount,8,6011470,422694,112666,310028,,,data/twitch/FR/musae_FR_edges.csv
-SpectralCount,9,11664341,422694,112666,310028,,,data/twitch/FR/musae_FR_edges.csv
-TraceTriangleR,0,110455,188911,31299,157612,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleR,1,14987,195550,31299,164251,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleR,2,76403,189199,31299,157900,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleR,3,74457,216104,31299,184805,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleR,4,71491,125315,31299,94016,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleR,5,54114,230913,31299,199614,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleR,6,23266,170508,31299,139209,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleR,7,77372,179383,31299,148084,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleR,8,75986,145472,31299,114173,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleR,9,30957,219717,31299,188418,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleN,0,61673,158788,31299,127489,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleN,1,62196,172081,31299,140782,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleN,2,33674,150070,31299,118771,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleN,3,94027,92355,31299,61056,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleN,4,61026,145057,31299,113758,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleN,5,96174,152361,31299,121062,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleN,6,107679,165879,31299,134580,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleN,7,77729,153361,31299,122062,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleN,8,22210,218868,31299,187569,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleN,9,19932,164137,31299,132838,1.0,,data/twitch/PTBR/musae_PTBR_edges.csv
-EigenTriangle,0,10652,169235,31299,137936,,20,data/twitch/PTBR/musae_PTBR_edges.csv
-EigenTriangle,1,6254,169439,31299,138140,,20,data/twitch/PTBR/musae_PTBR_edges.csv
-EigenTriangle,2,11318,170191,31299,138892,,20,data/twitch/PTBR/musae_PTBR_edges.csv
-EigenTriangle,3,3676,169913,31299,138614,,20,data/twitch/PTBR/musae_PTBR_edges.csv
-EigenTriangle,4,26978,169330,31299,138031,,20,data/twitch/PTBR/musae_PTBR_edges.csv
-EigenTriangle,5,4275,169502,31299,138203,,20,data/twitch/PTBR/musae_PTBR_edges.csv
-EigenTriangle,6,3732,170402,31299,139103,,20,data/twitch/PTBR/musae_PTBR_edges.csv
-EigenTriangle,7,9221,169429,31299,138130,,20,data/twitch/PTBR/musae_PTBR_edges.csv
-EigenTriangle,8,6217,169172,31299,137873,,20,data/twitch/PTBR/musae_PTBR_edges.csv
-EigenTriangle,9,3396,169166,31299,137867,,20,data/twitch/PTBR/musae_PTBR_edges.csv
-SpectralCount,0,444069,173510,31299,142211,,,data/twitch/PTBR/musae_PTBR_edges.csv
-SpectralCount,1,617684,173510,31299,142211,,,data/twitch/PTBR/musae_PTBR_edges.csv
-SpectralCount,2,1805933,173510,31299,142211,,,data/twitch/PTBR/musae_PTBR_edges.csv
-SpectralCount,3,1685846,173510,31299,142211,,,data/twitch/PTBR/musae_PTBR_edges.csv
-SpectralCount,4,1739532,173510,31299,142211,,,data/twitch/PTBR/musae_PTBR_edges.csv
-SpectralCount,5,2208458,173510,31299,142211,,,data/twitch/PTBR/musae_PTBR_edges.csv
-SpectralCount,6,1995933,173510,31299,142211,,,data/twitch/PTBR/musae_PTBR_edges.csv
-SpectralCount,7,3498251,173510,31299,142211,,,data/twitch/PTBR/musae_PTBR_edges.csv
-SpectralCount,8,1150779,173510,31299,142211,,,data/twitch/PTBR/musae_PTBR_edges.csv
-SpectralCount,9,3165537,173510,31299,142211,,,data/twitch/PTBR/musae_PTBR_edges.csv
-TraceTriangleR,0,94662,50427,37304,13123,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleR,1,42319,72038,37304,34734,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleR,2,34362,70184,37304,32880,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleR,3,84252,88789,37304,51485,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleR,4,86066,70567,37304,33263,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleR,5,139087,42968,37304,5664,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleR,6,83947,79348,37304,42044,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleR,7,88161,81213,37304,43909,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleR,8,86473,66787,37304,29483,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleR,9,120096,67152,37304,29848,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleN,0,106985,85387,37304,48083,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleN,1,69370,85295,37304,47991,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleN,2,87231,70403,37304,33099,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleN,3,78101,70293,37304,32989,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleN,4,51570,65409,37304,28105,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleN,5,71251,73893,37304,36589,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleN,6,89960,56912,37304,19608,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleN,7,105431,59722,37304,22418,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleN,8,118104,86143,37304,48839,1.0,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleN,9,159501,73202,37304,35898,1.0,,data/twitch/RU/musae_RU_edges.csv
-EigenTriangle,0,128536,61519,37304,24215,,20,data/twitch/RU/musae_RU_edges.csv
-EigenTriangle,1,11910,61736,37304,24432,,20,data/twitch/RU/musae_RU_edges.csv
-EigenTriangle,2,11133,61627,37304,24323,,20,data/twitch/RU/musae_RU_edges.csv
-EigenTriangle,3,49448,61518,37304,24214,,20,data/twitch/RU/musae_RU_edges.csv
-EigenTriangle,4,11891,61517,37304,24213,,20,data/twitch/RU/musae_RU_edges.csv
-EigenTriangle,5,15808,61611,37304,24307,,20,data/twitch/RU/musae_RU_edges.csv
-EigenTriangle,6,15480,61655,37304,24351,,20,data/twitch/RU/musae_RU_edges.csv
-EigenTriangle,7,14804,61644,37304,24340,,20,data/twitch/RU/musae_RU_edges.csv
-EigenTriangle,8,13291,61603,37304,24299,,20,data/twitch/RU/musae_RU_edges.csv
-EigenTriangle,9,18789,61713,37304,24409,,20,data/twitch/RU/musae_RU_edges.csv
-SpectralCount,0,1780628,71445,37304,34141,,,data/twitch/RU/musae_RU_edges.csv
-SpectralCount,1,2340710,71445,37304,34141,,,data/twitch/RU/musae_RU_edges.csv
-SpectralCount,2,2388361,71445,37304,34141,,,data/twitch/RU/musae_RU_edges.csv
-SpectralCount,3,2382371,71445,37304,34141,,,data/twitch/RU/musae_RU_edges.csv
-SpectralCount,4,4872638,71445,37304,34141,,,data/twitch/RU/musae_RU_edges.csv
-SpectralCount,5,3689447,71445,37304,34141,,,data/twitch/RU/musae_RU_edges.csv
-SpectralCount,6,4078428,71445,37304,34141,,,data/twitch/RU/musae_RU_edges.csv
-SpectralCount,7,5224559,71445,37304,34141,,,data/twitch/RU/musae_RU_edges.csv
-SpectralCount,8,7079717,71445,37304,34141,,,data/twitch/RU/musae_RU_edges.csv
-SpectralCount,9,5481545,71445,37304,34141,,,data/twitch/RU/musae_RU_edges.csv
-TraceTriangleR,0,53822,332304,31421,300883,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleR,1,28059,314612,31421,283191,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleR,2,93610,428013,31421,396592,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleR,3,106714,368311,31421,336890,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleR,4,75898,336343,31421,304922,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleR,5,65125,323785,31421,292364,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleR,6,64465,292074,31421,260653,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleR,7,100035,273315,31421,241894,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleR,8,82921,299901,31421,268480,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleR,9,97598,406819,31421,375398,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleN,0,81414,348452,31421,317031,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleN,1,159809,282965,31421,251544,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleN,2,80325,324545,31421,293124,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleN,3,64375,346080,31421,314659,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleN,4,56039,373414,31421,341993,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleN,5,80475,351435,31421,320014,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleN,6,94215,417477,31421,386056,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleN,7,78612,324409,31421,292988,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleN,8,116578,356250,31421,324829,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleN,9,73921,301552,31421,270131,1.0,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-EigenTriangle,0,33321,339462,31421,308041,,20,data/wikipedia/chameleon/musae_chameleon_edges.csv
-EigenTriangle,1,7413,339813,31421,308392,,20,data/wikipedia/chameleon/musae_chameleon_edges.csv
-EigenTriangle,2,47202,340153,31421,308732,,20,data/wikipedia/chameleon/musae_chameleon_edges.csv
-EigenTriangle,3,4867,339690,31421,308269,,20,data/wikipedia/chameleon/musae_chameleon_edges.csv
-EigenTriangle,4,32131,340159,31421,308738,,20,data/wikipedia/chameleon/musae_chameleon_edges.csv
-EigenTriangle,5,33639,339805,31421,308384,,20,data/wikipedia/chameleon/musae_chameleon_edges.csv
-EigenTriangle,6,6209,339857,31421,308436,,20,data/wikipedia/chameleon/musae_chameleon_edges.csv
-EigenTriangle,7,4884,332046,31421,300625,,20,data/wikipedia/chameleon/musae_chameleon_edges.csv
-EigenTriangle,8,4402,340109,31421,308688,,20,data/wikipedia/chameleon/musae_chameleon_edges.csv
-EigenTriangle,9,19959,339035,31421,307614,,20,data/wikipedia/chameleon/musae_chameleon_edges.csv
-SpectralCount,0,943175,345064,31421,313643,,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-SpectralCount,1,1314810,345064,31421,313643,,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-SpectralCount,2,1444431,345064,31421,313643,,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-SpectralCount,3,1649583,345064,31421,313643,,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-SpectralCount,4,2225842,345064,31421,313643,,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-SpectralCount,5,1956174,345064,31421,313643,,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-SpectralCount,6,4668205,345064,31421,313643,,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-SpectralCount,7,2708739,345064,31421,313643,,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-SpectralCount,8,2006980,345064,31421,313643,,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-SpectralCount,9,1270502,345064,31421,313643,,,data/wikipedia/chameleon/musae_chameleon_edges.csv
-TraceTriangleR,0,732354,0,170918,170918,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleR,1,508832,740513,170918,569595,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleR,2,876604,824002,170918,653084,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleR,3,701290,430894,170918,259976,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleR,4,456405,990313,170918,819395,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleR,5,667024,168374,170918,2544,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleR,6,495000,319734,170918,148816,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleR,7,538184,1018567,170918,847649,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleR,8,891115,421285,170918,250367,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleR,9,834578,0,170918,170918,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleN,0,991286,0,170918,170918,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleN,1,831736,944934,170918,774016,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleN,2,596441,3429,170918,167489,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleN,3,506592,671147,170918,500229,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleN,4,801704,365594,170918,194676,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleN,5,592360,1008010,170918,837092,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleN,6,587666,820645,170918,649727,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleN,7,481531,873116,170918,702198,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleN,8,609293,421542,170918,250624,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleN,9,530798,756214,170918,585296,1.0,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-EigenTriangle,0,169974,387454,170918,216536,,20,data/wikipedia/crocodile/musae_crocodile_edges.csv
-EigenTriangle,1,139398,388996,170918,218078,,20,data/wikipedia/crocodile/musae_crocodile_edges.csv
-EigenTriangle,2,108265,387370,170918,216452,,20,data/wikipedia/crocodile/musae_crocodile_edges.csv
-EigenTriangle,3,93325,386808,170918,215890,,20,data/wikipedia/crocodile/musae_crocodile_edges.csv
-EigenTriangle,4,77952,387604,170918,216686,,20,data/wikipedia/crocodile/musae_crocodile_edges.csv
-EigenTriangle,5,72521,388359,170918,217441,,20,data/wikipedia/crocodile/musae_crocodile_edges.csv
-EigenTriangle,6,87661,386799,170918,215881,,20,data/wikipedia/crocodile/musae_crocodile_edges.csv
-EigenTriangle,7,84240,386682,170918,215764,,20,data/wikipedia/crocodile/musae_crocodile_edges.csv
-EigenTriangle,8,58337,388385,170918,217467,,20,data/wikipedia/crocodile/musae_crocodile_edges.csv
-EigenTriangle,9,80968,385995,170918,215077,,20,data/wikipedia/crocodile/musae_crocodile_edges.csv
-SpectralCount,0,12780568,630879,170918,459961,,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-SpectralCount,1,9040933,630879,170918,459961,,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-SpectralCount,2,11814744,630879,170918,459961,,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-SpectralCount,3,8189508,630879,170918,459961,,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-SpectralCount,4,7034028,630879,170918,459961,,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-SpectralCount,5,6269400,630879,170918,459961,,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-SpectralCount,6,5279644,630879,170918,459961,,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-SpectralCount,7,4483508,630879,170918,459961,,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-SpectralCount,8,5425916,630879,170918,459961,,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-SpectralCount,9,3767278,630879,170918,459961,,,data/wikipedia/crocodile/musae_crocodile_edges.csv
-TraceTriangleR,0,298990,11630902,198493,11432409,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleR,1,368302,9879687,198493,9681194,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleR,2,497526,6310686,198493,6112193,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleR,3,377203,7513223,198493,7314730,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleR,4,353551,9174909,198493,8976416,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleR,5,477140,11865239,198493,11666746,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleR,6,426114,12366208,198493,12167715,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleR,7,559949,12044988,198493,11846495,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleR,8,568512,10136772,198493,9938279,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleR,9,477467,9864756,198493,9666263,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleN,0,689769,10392494,198493,10194001,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleN,1,463432,8585651,198493,8387158,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleN,2,409839,10547863,198493,10349370,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleN,3,397655,9140395,198493,8941902,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleN,4,530266,6646210,198493,6447717,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleN,5,676558,8723752,198493,8525259,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleN,6,641818,11060710,198493,10862217,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleN,7,575740,9059970,198493,8861477,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleN,8,331205,9342953,198493,9144460,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleN,9,241769,9354553,198493,9156060,1.0,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-EigenTriangle,0,29237,9671880,198493,9473387,,20,data/wikipedia/squirrel/musae_squirrel_edges.csv
-EigenTriangle,1,41664,9133614,198493,8935121,,20,data/wikipedia/squirrel/musae_squirrel_edges.csv
-EigenTriangle,2,42756,11245222,198493,11046729,,20,data/wikipedia/squirrel/musae_squirrel_edges.csv
-EigenTriangle,3,34037,58976848,198493,58778355,,20,data/wikipedia/squirrel/musae_squirrel_edges.csv
-EigenTriangle,4,46899,9864066,198493,9665573,,20,data/wikipedia/squirrel/musae_squirrel_edges.csv
-EigenTriangle,5,39444,10655328,198493,10456835,,20,data/wikipedia/squirrel/musae_squirrel_edges.csv
-EigenTriangle,6,68656,53330496,198493,53132003,,20,data/wikipedia/squirrel/musae_squirrel_edges.csv
-EigenTriangle,7,53339,10584153,198493,10385660,,20,data/wikipedia/squirrel/musae_squirrel_edges.csv
-EigenTriangle,8,100046,28171515,198493,27973022,,20,data/wikipedia/squirrel/musae_squirrel_edges.csv
-EigenTriangle,9,37250,53867193,198493,53668700,,20,data/wikipedia/squirrel/musae_squirrel_edges.csv
-SpectralCount,0,7029158,9604843,198493,9406350,,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-SpectralCount,1,5229203,9604843,198493,9406350,,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-SpectralCount,2,6031000,9604843,198493,9406350,,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-SpectralCount,3,4686961,9604843,198493,9406350,,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-SpectralCount,4,5412652,9604843,198493,9406350,,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-SpectralCount,5,4308575,9604843,198493,9406350,,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-SpectralCount,6,3874307,9604843,198493,9406350,,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-SpectralCount,7,3473764,9604843,198493,9406350,,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-SpectralCount,8,4615717,9604843,198493,9406350,,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-SpectralCount,9,3281626,9604843,198493,9406350,,,data/wikipedia/squirrel/musae_squirrel_edges.csv
-TraceTriangleR,0,468920,47325,28980,18345,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleR,1,599839,50381,28980,21401,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleR,2,429793,47091,28980,18111,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleR,3,284076,48258,28980,19278,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleR,4,565974,48742,28980,19762,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleR,5,449403,52050,28980,23070,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleR,6,512721,46797,28980,17817,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleR,7,259845,46726,28980,17746,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleR,8,178068,48141,28980,19161,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleR,9,221396,49754,28980,20774,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleN,0,536275,48476,28980,19496,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleN,1,264826,49069,28980,20089,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleN,2,192124,54911,28980,25931,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleN,3,253269,51039,28980,22059,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleN,4,534737,46830,28980,17850,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleN,5,455704,50025,28980,21045,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleN,6,325701,49380,28980,20400,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleN,7,441015,46261,28980,17281,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleN,8,432591,45910,28980,16930,1.0,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleN,9,252092,49288,28980,20308,1.0,,data/CA-GrQc/CA-GrQc.txt
-EigenTriangle,0,149295,38898,28980,9918,,20,data/CA-GrQc/CA-GrQc.txt
-EigenTriangle,1,84436,38875,28980,9895,,20,data/CA-GrQc/CA-GrQc.txt
-EigenTriangle,2,166529,38924,28980,9944,,20,data/CA-GrQc/CA-GrQc.txt
-EigenTriangle,3,99175,38906,28980,9926,,20,data/CA-GrQc/CA-GrQc.txt
-EigenTriangle,4,68825,38875,28980,9895,,20,data/CA-GrQc/CA-GrQc.txt
-EigenTriangle,5,79345,38928,28980,9948,,20,data/CA-GrQc/CA-GrQc.txt
-EigenTriangle,6,33333,38913,28980,9933,,20,data/CA-GrQc/CA-GrQc.txt
-EigenTriangle,7,47821,38917,28980,9937,,20,data/CA-GrQc/CA-GrQc.txt
-EigenTriangle,8,67813,38901,28980,9921,,20,data/CA-GrQc/CA-GrQc.txt
-EigenTriangle,9,36710,38899,28980,9919,,20,data/CA-GrQc/CA-GrQc.txt
-SpectralCount,0,368508,48296,28980,19316,,,data/CA-GrQc/CA-GrQc.txt
-SpectralCount,1,1239078,48296,28980,19316,,,data/CA-GrQc/CA-GrQc.txt
-SpectralCount,2,1099243,48296,28980,19316,,,data/CA-GrQc/CA-GrQc.txt
-SpectralCount,3,459547,48296,28980,19316,,,data/CA-GrQc/CA-GrQc.txt
-SpectralCount,4,951529,48296,28980,19316,,,data/CA-GrQc/CA-GrQc.txt
-SpectralCount,5,778270,48296,28980,19316,,,data/CA-GrQc/CA-GrQc.txt
-SpectralCount,6,695228,48296,28980,19316,,,data/CA-GrQc/CA-GrQc.txt
-SpectralCount,7,336811,48296,28980,19316,,,data/CA-GrQc/CA-GrQc.txt
-SpectralCount,8,885802,48296,28980,19316,,,data/CA-GrQc/CA-GrQc.txt
-SpectralCount,9,263267,48296,28980,19316,,,data/CA-GrQc/CA-GrQc.txt
-TraceTriangleR,0,2535105,1378833,396160,982673,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleR,1,2523913,1372205,396160,976045,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleR,2,2432376,1358802,396160,962642,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleR,3,1531156,1303507,396160,907347,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleR,4,2064032,1377744,396160,981584,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleR,5,2690504,1389939,396160,993779,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleR,6,1617675,1384803,396160,988643,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleR,7,2255409,1358851,396160,962691,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleR,8,2623049,1380477,396160,984317,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleR,9,1540326,1350472,396160,954312,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleN,0,2484851,1349821,396160,953661,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleN,1,2366715,1332995,396160,936835,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleN,2,2463008,1380393,396160,984233,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleN,3,1871438,1320722,396160,924562,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleN,4,2485488,1421123,396160,1024963,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleN,5,2281304,1335549,396160,939389,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleN,6,1933033,1324276,396160,928116,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleN,7,2556847,1415241,396160,1019081,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleN,8,2321080,1345773,396160,949613,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-TraceTriangleN,9,2356217,1378196,396160,982036,1.0,,data/CA-AstroPh/CA-AstroPh.txt
-EigenTriangle,0,297850,407182,396160,11022,,20,data/CA-AstroPh/CA-AstroPh.txt
-EigenTriangle,1,303899,407150,396160,10990,,20,data/CA-AstroPh/CA-AstroPh.txt
-EigenTriangle,2,439002,409258,396160,13098,,20,data/CA-AstroPh/CA-AstroPh.txt
-EigenTriangle,3,322792,407054,396160,10894,,20,data/CA-AstroPh/CA-AstroPh.txt
-EigenTriangle,4,304114,407096,396160,10936,,20,data/CA-AstroPh/CA-AstroPh.txt
-EigenTriangle,5,294825,414624,396160,18464,,20,data/CA-AstroPh/CA-AstroPh.txt
-EigenTriangle,6,178502,409413,396160,13253,,20,data/CA-AstroPh/CA-AstroPh.txt
-EigenTriangle,7,193997,410409,396160,14249,,20,data/CA-AstroPh/CA-AstroPh.txt
-EigenTriangle,8,962211,402328,396160,6168,,20,data/CA-AstroPh/CA-AstroPh.txt
-EigenTriangle,9,661156,408365,396160,12205,,20,data/CA-AstroPh/CA-AstroPh.txt
-SpectralCount,0,4227505,1352994,396160,956834,,,data/CA-AstroPh/CA-AstroPh.txt
-SpectralCount,1,3341121,1352994,396160,956834,,,data/CA-AstroPh/CA-AstroPh.txt
-SpectralCount,2,3270519,1352994,396160,956834,,,data/CA-AstroPh/CA-AstroPh.txt
-SpectralCount,3,3125584,1352994,396160,956834,,,data/CA-AstroPh/CA-AstroPh.txt
-SpectralCount,4,3449450,1352994,396160,956834,,,data/CA-AstroPh/CA-AstroPh.txt
-SpectralCount,5,3094621,1352994,396160,956834,,,data/CA-AstroPh/CA-AstroPh.txt
-SpectralCount,6,2939955,1352994,396160,956834,,,data/CA-AstroPh/CA-AstroPh.txt
-SpectralCount,7,2261388,1352994,396160,956834,,,data/CA-AstroPh/CA-AstroPh.txt
-SpectralCount,8,2474313,1352994,396160,956834,,,data/CA-AstroPh/CA-AstroPh.txt
-SpectralCount,9,2333391,1352994,396160,956834,,,data/CA-AstroPh/CA-AstroPh.txt
+alg_name,trial_num,runtime,result,gamma,max_iters,ds_path
+Spectral Count,0,4180580,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,1,4578790,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,2,5565627,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,3,7244540,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,4,7026563,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,5,11758100,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,6,9224699,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,7,12874299,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,8,8603628,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,9,6543618,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,10,4301923,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,11,6670818,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,12,10747600,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,13,16008546,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,14,15273084,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,15,7927765,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,16,12386798,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,17,7126541,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,18,9185970,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,19,11544777,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,20,8554457,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,21,3616421,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,22,13470573,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,23,9434422,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,24,13497366,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,25,15292488,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,26,10269913,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,27,5762102,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,28,13221944,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,29,12779266,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,30,11991095,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,31,12260396,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,32,13242488,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,33,6590810,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,34,2845907,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,35,5505484,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,36,3370847,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,37,3388843,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,38,3509626,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,39,2806419,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,40,5661020,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,41,3800653,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,42,2210444,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,43,3108344,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,44,1554907,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,45,3181518,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,46,3196934,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,47,2642030,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,48,3235432,200144,,,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,49,3244386,200144,,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,0,427589,205408,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,1,355634,226107,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,2,445604,208698,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,3,415691,184236,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,4,388102,174496,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,5,382644,236763,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,6,492880,212173,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,7,450641,188917,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,8,384740,212324,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,9,374623,200834,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,10,414605,187156,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,11,303906,181188,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,12,351399,184109,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,13,226729,182596,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,14,227305,196995,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,15,195805,225341,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,16,192335,199021,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,17,153694,197778,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,18,184260,178537,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,19,88731,167627,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,20,190593,194275,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,21,347215,211318,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,22,147553,187804,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,23,193911,154341,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,24,377964,205511,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,25,179092,205132,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,26,334920,191422,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,27,291951,207368,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,28,269369,206287,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,29,372613,199303,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,30,332341,196565,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,31,270918,215900,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,32,296732,189837,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,33,278615,213890,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,34,154874,200223,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,35,210038,211020,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,36,264780,176544,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,37,211895,175073,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,38,237787,179648,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,39,192409,178482,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,40,138082,203033,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,41,214308,171178,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,42,234759,153859,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,43,248709,215090,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,44,176277,213485,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,45,169128,187465,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,46,218042,203725,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,47,347405,189998,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,48,320891,238881,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleR,49,316229,206937,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,0,403323,223846,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,1,337801,210703,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,2,340996,216544,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,3,400207,211384,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,4,315459,156875,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,5,317900,217713,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,6,202375,245004,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,7,285176,199805,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,8,296321,149704,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,9,331895,218560,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,10,367391,179529,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,11,398154,189233,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,12,288526,195534,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,13,205939,167634,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,14,168004,206881,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,15,155521,244319,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,16,160116,197468,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,17,498448,183453,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,18,525184,190691,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,19,341552,179173,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,20,444492,166331,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,21,415771,194137,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,22,442681,197460,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,23,312323,178938,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,24,306551,198200,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,25,298773,166349,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,26,278016,191992,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,27,255247,196543,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,28,322469,234753,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,29,320470,178286,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,30,332758,221523,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,31,248623,172763,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,32,326800,225448,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,33,201423,282803,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,34,253010,219023,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,35,374721,218885,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,36,222915,169838,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,37,258467,210801,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,38,363307,180129,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,39,440986,262406,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,40,388782,185733,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,41,432991,220216,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,42,308372,186785,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,43,258054,176923,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,44,223044,194401,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,45,281789,171952,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,46,318566,207727,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,47,343871,178862,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,48,398592,202463,1.0,,data/twitch/ES/musae_ES_edges.csv
+TraceTriangleN,49,365800,193903,1.0,,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,0,57718,172491,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,1,41500,172526,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,2,85544,172656,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,3,89045,172726,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,4,60328,172663,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,5,75721,172414,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,6,61122,172575,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,7,69696,172111,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,8,57065,172781,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,9,66767,172886,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,10,62557,172613,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,11,32850,172791,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,12,44812,172805,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,13,57100,172221,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,14,62501,172786,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,15,43818,172723,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,16,24755,172677,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,17,64662,172291,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,18,46044,174259,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,19,55993,172780,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,20,38578,172502,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,21,83745,172331,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,22,66501,172509,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,23,53509,172616,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,24,47171,172894,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,25,43389,172570,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,26,38019,173040,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,27,45656,172636,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,28,62068,172850,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,29,61362,172327,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,30,21083,172185,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,31,66689,172766,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,32,25658,173116,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,33,21776,172694,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,34,45800,172832,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,35,47151,172240,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,36,50701,172347,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,37,59862,172805,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,38,43342,172787,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,39,73762,172698,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,40,59636,172057,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,41,56481,172483,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,42,87375,172549,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,43,66367,172453,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,44,131675,173170,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,45,87826,172960,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,46,37884,172826,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,47,92518,172227,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,48,20761,172609,,20,data/twitch/ES/musae_ES_edges.csv
+EigenTriangle,49,21998,172669,,20,data/twitch/ES/musae_ES_edges.csv
+Spectral Count,0,3607756,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,1,4761109,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,2,4606393,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,3,3000828,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,4,3711720,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,5,6098229,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,6,6143906,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,7,8322635,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,8,13744830,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,9,4315072,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,10,4162594,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,11,4405022,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,12,12355548,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,13,2394019,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,14,4371780,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,15,6487010,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,16,10895963,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,17,13337533,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,18,12748191,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,19,8103503,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,20,15701504,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,21,8975260,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,22,9127451,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,23,5775649,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,24,6532990,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,25,6729572,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,26,1726378,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,27,2863539,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,28,10268193,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,29,5918891,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,30,16626294,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,31,3709124,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,32,11048672,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,33,4325444,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,34,5635681,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,35,7773115,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,36,5329195,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,37,10392512,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,38,10677443,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,39,11386487,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,40,4368693,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,41,11860774,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,42,11803531,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,43,8346571,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,44,1656228,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,45,2541250,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,46,3736696,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,47,2878602,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,48,2460379,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+Spectral Count,49,977178,29266,,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,0,163799,28678,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,1,163977,25494,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,2,257697,31454,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,3,345163,28918,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,4,305386,35313,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,5,346248,30699,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,6,377847,29580,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,7,329951,29803,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,8,185061,31945,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,9,356712,25980,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,10,419987,27740,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,11,261938,27941,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,12,208695,23814,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,13,241428,28111,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,14,289710,30689,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,15,355529,27674,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,16,309140,28069,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,17,279734,33335,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,18,408238,32111,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,19,352817,32325,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,20,357452,34499,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,21,383565,31912,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,22,348391,30008,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,23,347697,27690,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,24,365188,29873,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,25,375234,32123,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,26,361941,29371,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,27,181296,27464,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,28,261726,31557,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,29,265799,26141,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,30,251605,22690,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,31,178251,27043,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,32,181613,31341,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,33,305756,29938,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,34,221001,27524,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,35,355502,29019,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,36,317065,32912,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,37,336202,28610,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,38,425153,31203,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,39,119036,32927,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,40,222662,29972,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,41,282329,24773,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,42,179803,26504,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,43,237273,27630,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,44,261704,29133,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,45,216803,29154,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,46,247000,24260,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,47,257284,25602,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,48,269853,31596,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleR,49,202666,29740,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,0,231759,32467,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,1,228839,32063,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,2,251861,24676,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,3,273232,26067,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,4,238890,29335,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,5,282869,30346,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,6,251334,23553,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,7,324735,25223,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,8,213385,26223,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,9,215530,25720,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,10,226078,29397,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,11,267241,25646,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,12,243655,34684,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,13,136434,26998,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,14,296849,34239,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,15,328368,35960,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,16,231973,31474,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,17,349632,29705,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,18,275513,28612,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,19,222786,26680,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,20,309746,28573,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,21,353192,31260,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,22,411373,22686,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,23,372903,29998,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,24,346537,29102,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,25,311339,30342,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,26,334939,29863,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,27,388358,28264,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,28,230370,31662,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,29,225420,29913,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,30,162969,32604,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,31,240511,27329,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,32,273497,26740,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,33,278845,32771,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,34,565568,32443,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,35,385197,25980,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,36,404034,23160,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,37,398903,27753,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,38,403588,33221,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,39,213943,29380,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,40,240909,28021,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,41,301757,26181,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,42,340997,29478,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,43,339030,30219,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,44,207643,29117,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,45,281852,31591,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,46,214970,31420,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,47,312803,30394,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,48,238420,31393,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+TraceTriangleN,49,211959,27925,1.0,,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,0,41687,18440,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,1,7678,18295,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,2,31575,16280,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,3,12932,18502,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,4,69444,18557,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,5,34934,18670,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,6,24294,18402,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,7,35433,17761,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,8,32502,18561,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,9,22173,17770,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,10,23890,17546,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,11,17876,18659,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,12,8592,18572,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,13,30353,17371,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,14,38454,18361,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,15,23626,16387,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,16,31944,18671,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,17,34941,18384,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,18,45266,17633,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,19,37476,18272,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,20,42113,18417,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,21,39698,17533,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,22,42525,17157,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,23,31381,18233,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,24,36645,17695,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,25,21742,18363,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,26,47370,16653,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,27,32540,18313,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,28,42110,18484,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,29,50414,16824,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,30,48810,16903,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,31,39387,18541,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,32,37713,18296,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,33,19205,18655,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,34,31416,17907,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,35,32969,18589,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,36,43624,18836,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,37,34041,18464,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,38,52085,18134,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,39,36789,17682,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,40,29620,18063,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,41,33420,18756,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,42,34048,18421,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,43,49591,18012,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,44,33169,16310,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,45,54333,18682,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,46,26543,18138,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,47,21066,18602,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,48,54443,18108,,20,data/twitch/ENGB/musae_ENGB_edges.csv
+EigenTriangle,49,23613,18389,,20,data/twitch/ENGB/musae_ENGB_edges.csv

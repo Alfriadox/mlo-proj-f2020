@@ -26,7 +26,7 @@ mod algs;
 mod processing;
 
 /// The number of trials of every algorithm to run on each dataset.
-pub const TRIALS: u8 = 10;
+pub const TRIALS: u8 = 50;
 
 /// A constant array representing the datasets to test.
 /// Add or remove entries as necessary.
@@ -170,7 +170,8 @@ fn main() {
     };
 
     // Create a list of thread handles to receive results from on completion.
-    let mut threads: Vec<JoinHandle<Vec<BenchmarkRecord>>> = Vec::with_capacity(DATASETS.len());
+    let mut threads: Vec<JoinHandle<Vec<JoinHandle<Vec<BenchmarkRecord>>>>> =
+        Vec::with_capacity(DATASETS.len());
 
     for dataset in DATASETS {
         // make a progress bar for the file reading
@@ -185,12 +186,16 @@ fn main() {
         let eigen_bar = make_alg_bar(dataset, "EigenTriangle");
 
         // Load the dataset from a the filesystem into an adjacency matrix.
-        let adjacency_matrix: Graph = dataset.load(io_bar);
+        let results: JoinHandle<Vec<JoinHandle<Vec<BenchmarkRecord>>>> = thread::spawn(move || {
+            let mut results: Vec<JoinHandle<Vec<BenchmarkRecord>>> =
+                Vec::with_capacity(4*TRIALS as usize);
 
-        // run each of the algorithms in their own thread.
-        // first the spectral count.
-        let spectral_input = adjacency_matrix.clone();
-        let spectral_thread = thread::spawn(move || {
+            let adjacency_matrix: Graph = dataset.load(io_bar);
+
+            // run each of the algorithms in their own thread.
+            // first the spectral count.
+            let spectral_input = adjacency_matrix.clone();
+            let spectral_thread = thread::spawn(move || {
                 AlgorithmBenchmark::run(
                     spectral_count_bar,
                     spectral_count,
@@ -202,91 +207,103 @@ fn main() {
                     None
                 )
             });
-        threads.push(spectral_thread);
+            results.push(spectral_thread);
 
-        // Set the gamma for TraceTriangle.
-        let gamma = 1f64;
+            // Set the gamma for TraceTriangle.
+            let gamma = 1f64;
 
-        // Next trace_triangle_r
-        let ttr_input = TraceTriangle {
-            random_vector_variant: RandomVector::Rademacher,
-            seed: None,
-            gamma,
-            graph: adjacency_matrix.clone()
-        };
-        let ttr_thread = thread::spawn(move || {
-            AlgorithmBenchmark::run(
-                ttr_bar,
-                TraceTriangle::run,
-                &ttr_input
-            ).to_records(
-                "TraceTriangleR",
-                dataset,
-                Some(gamma),
-                None
-            )
+            // Next trace_triangle_r
+            let ttr_input = TraceTriangle {
+                random_vector_variant: RandomVector::Rademacher,
+                seed: None,
+                gamma,
+                graph: adjacency_matrix.clone()
+            };
+            let ttr_thread = thread::spawn(move || {
+                AlgorithmBenchmark::run(
+                    ttr_bar,
+                    TraceTriangle::run,
+                    &ttr_input
+                ).to_records(
+                    "TraceTriangleR",
+                    dataset,
+                    Some(gamma),
+                    None
+                )
+            });
+
+            results.push(ttr_thread);
+
+            // Then trace_triangle_n.
+            let ttn_input = TraceTriangle {
+                random_vector_variant: RandomVector::Normal,
+                seed: None,
+                gamma,
+                graph: adjacency_matrix.clone(),
+            };
+            let ttn_thread = thread::spawn(move || {
+                AlgorithmBenchmark::run(
+                    ttn_bar,
+                    TraceTriangle::run,
+                    &ttn_input
+                ).to_records(
+                    "TraceTriangleN",
+                    dataset,
+                    Some(gamma),
+                    None,
+                )
+            });
+
+            results.push(ttn_thread);
+
+            // Lastly EigenTriangle.
+            let max_iters: usize = 20;
+            let eigen_input = EigenTriangle {
+                maximum_iterations: max_iters,
+                graph: adjacency_matrix.clone()
+            };
+            let eigen_thread = thread::spawn(move || {
+                AlgorithmBenchmark::run(
+                    eigen_bar,
+                    EigenTriangle::run,
+                    &eigen_input
+                ).to_records(
+                    "EigenTriangle",
+                    dataset,
+                    None,
+                    Some(max_iters)
+                )
+            });
+
+            results.push(eigen_thread);
+
+            // Return the generated results.
+            results
         });
 
-        threads.push(ttr_thread);
-
-        // Then trace_triangle_n.
-        let ttn_input = TraceTriangle {
-            random_vector_variant: RandomVector::Normal,
-            seed: None,
-            gamma,
-            graph: adjacency_matrix.clone(),
-        };
-        let ttn_thread = thread::spawn(move || {
-            AlgorithmBenchmark::run(
-                ttn_bar,
-                TraceTriangle::run,
-                &ttn_input
-            ).to_records(
-                "TraceTriangleN",
-                dataset,
-                Some(gamma),
-                None,
-            )
-        });
-
-        threads.push(ttn_thread);
-
-        // Lastly EigenTriangle.
-        let max_iters: usize = 20;
-        let eigen_input = EigenTriangle {
-            maximum_iterations: max_iters,
-            graph: adjacency_matrix.clone()
-        };
-        let eigen_thread = thread::spawn(move || {
-            AlgorithmBenchmark::run(
-                eigen_bar,
-                EigenTriangle::run,
-                &eigen_input
-            ).to_records(
-                "EigenTriangle",
-                dataset,
-                None,
-                Some(max_iters)
-            )
-        });
-
-        threads.push(eigen_thread);
+        // Add the results thread to the list of executing threads.
+        threads.push(results);
     }
 
-    // Wait for all status bars on the multi-bar to complete.
-    multibar.join().unwrap();
+    // Run the multi bar on the main thread.
+    //multibar.join().expect("Could not join multi bar.");
 
     // Collect all the results from child threads anc save them into a CSV file.
     let mut output: Writer<File> = Writer::from_path("results.csv")
         .expect("Could not make output file.");
     for results_thread in threads {
-        let results: Vec<BenchmarkRecord> = results_thread.join()
+        let test_threads = results_thread.join()
             .expect("Could not join results thread.");
 
         // Write each result to the CSV file.
-        for result in results {
-            output.serialize(result)
-                .expect("Could not serialize record.");
+        for test_thread in test_threads {
+            let results = test_thread.join()
+                .expect("Could not complete experiment thread.");
+
+            for result in results {
+                output.serialize(result)
+                    .expect("Could not serialize record.");
+            }
         }
     }
 }
