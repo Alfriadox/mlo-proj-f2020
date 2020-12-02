@@ -36,7 +36,6 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/twitch/ES/musae_ES_edges.csv",
         nodes: 4_648,
-        edges: 59_382,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None,
@@ -44,7 +43,6 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/twitch/ENGB/musae_ENGB_edges.csv",
         nodes: 7_126,
-        edges: 35_324,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None
@@ -52,7 +50,6 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/twitch/DE/musae_DE_edges.csv",
         nodes: 9_498,
-        edges: 153_138,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None
@@ -60,7 +57,6 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/twitch/FR/musae_FR_edges.csv",
         nodes: 6_549,
-        edges: 112_666,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None
@@ -68,7 +64,6 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/twitch/PTBR/musae_PTBR_edges.csv",
         nodes: 1_912,
-        edges: 31_299,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None
@@ -76,7 +71,6 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/twitch/RU/musae_RU_edges.csv",
         nodes: 4_385,
-        edges: 37_304,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None
@@ -84,7 +78,6 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/wikipedia/chameleon/musae_chameleon_edges.csv",
         nodes: 2_277,
-        edges: 31_421,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None
@@ -92,7 +85,6 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/wikipedia/crocodile/musae_crocodile_edges.csv",
         nodes: 11_631,
-        edges: 170_918,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None,
@@ -100,7 +92,6 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/wikipedia/squirrel/musae_squirrel_edges.csv",
         nodes: 5_201,
-        edges: 198_493,
         csv_delimiter: b',',
         has_header_row: true,
         comment_char: None,
@@ -108,7 +99,6 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/CA-GrQc/CA-GrQc.txt",
         nodes: 5_242,
-        edges: 28_980,
         csv_delimiter: b'\t',
         has_header_row: false,
         comment_char: Some(b'#')
@@ -116,7 +106,6 @@ const DATASETS: &'static [Dataset] = &[
     Dataset {
         path: "data/CA-AstroPh/CA-AstroPh.txt",
         nodes: 18_772,
-        edges: 396_160,
         csv_delimiter: b'\t',
         has_header_row: false,
         comment_char: Some(b'#')
@@ -195,118 +184,93 @@ fn main() {
         // Make a progress bar for the EigenTriangle algorithm.
         let eigen_bar = make_alg_bar(dataset, "EigenTriangle");
 
-        // Spawn a child thread to operate on the dataset.
-        let join_handle: JoinHandle<Vec<BenchmarkRecord>> = thread::spawn(move || {
-            // Load the dataset from a the filesystem into an adjacency matrix.
-            let adjacency_matrix: Graph = dataset.load(io_bar);
+        // Load the dataset from a the filesystem into an adjacency matrix.
+        let adjacency_matrix: Graph = dataset.load(io_bar);
 
-            // run each of the algorithms in their own thread.
-            // first the spectral count.
-            let spectral_input = adjacency_matrix.clone();
-            let spectral_thread =
-                thread::spawn(move || AlgorithmBenchmark::run(
+        // run each of the algorithms in their own thread.
+        // first the spectral count.
+        let spectral_input = adjacency_matrix.clone();
+        let spectral_thread = thread::spawn(move || {
+                AlgorithmBenchmark::run(
                     spectral_count_bar,
                     spectral_count,
                     &spectral_input
-                ));
-
-            // Set the gamma for TraceTriangle.
-            let gamma = 1f64;
-            // Next trace_triangle_r
-            let ttr_input = TraceTriangle {
-                random_vector_variant: RandomVector::Rademacher,
-                seed: None,
-                gamma,
-                graph: adjacency_matrix.clone()
-            };
-            let ttr_thread =
-                thread::spawn(move || AlgorithmBenchmark::run(
-                    ttr_bar,
-                    TraceTriangle::run,
-                    &ttr_input
-                ));
-
-            // then trace_triangle_n
-            let ttn_input = TraceTriangle {
-                random_vector_variant: RandomVector::Normal,
-                seed: None,
-                gamma,
-                graph: adjacency_matrix.clone(),
-            };
-            let ttn_thread =
-                thread::spawn(move || AlgorithmBenchmark::run(
-                    ttn_bar,
-                    TraceTriangle::run,
-                    &ttn_input
-                ));
-
-            // Lastly EigenTriangle.
-            let max_iters: usize = 20;
-            let eigen_input = EigenTriangle {
-                maximum_iterations: max_iters,
-                graph: adjacency_matrix.clone()
-            };
-            let eigen_thread =
-                thread::spawn(move || AlgorithmBenchmark::run(
-                    eigen_bar,
-                    EigenTriangle::run,
-                    &eigen_input
-                ));
-
-            
-            // Join the spawned threads. Convert the results to serializable
-            // records, and collect all of those into one list.
-            let mut results: Vec<BenchmarkRecord> = Vec::new();
-            let mut ttr: Vec<BenchmarkRecord> = ttr_thread
-                .join()
-                .expect("TTR failed")
-                .to_records(
-                    "TraceTriangleR",
+                ).to_records(
+                    "Spectral Count",
                     dataset,
-                    Some(gamma),
+                    None,
                     None
-                );
-            results.append(&mut ttr);
+                )
+            });
+        threads.push(spectral_thread);
 
-            let mut ttn: Vec<BenchmarkRecord> = ttn_thread
-                .join()
-                .expect("TTN failed")
-                .to_records(
-                    "TraceTriangleN",
-                    dataset,
-                    Some(gamma),
-                    None
-                );
-            results.append(&mut ttn);
+        // Set the gamma for TraceTriangle.
+        let gamma = 1f64;
 
-            let mut eigen: Vec<BenchmarkRecord> = eigen_thread
-                .join()
-                .expect("EigenTriangle failed")
-                .to_records(
-                    "EigenTriangle",
-                    dataset,
-                    None,
-                    Some(max_iters)
-                );
-            results.append(&mut eigen);
-
-            let mut spectral_count: Vec<BenchmarkRecord> = spectral_thread
-                .join()
-                .expect("Spectral count failed")
-                .to_records(
-                    "SpectralCount",
-                    dataset,
-                    None,
-                    None,
-                );
-            results.append(&mut spectral_count);
-
-            // Return the results.
-            results
+        // Next trace_triangle_r
+        let ttr_input = TraceTriangle {
+            random_vector_variant: RandomVector::Rademacher,
+            seed: None,
+            gamma,
+            graph: adjacency_matrix.clone()
+        };
+        let ttr_thread = thread::spawn(move || {
+            AlgorithmBenchmark::run(
+                ttr_bar,
+                TraceTriangle::run,
+                &ttr_input
+            ).to_records(
+                "TraceTriangleR",
+                dataset,
+                Some(gamma),
+                None
+            )
         });
 
-        // Add the join handle to the list of threads.
-        threads.push(join_handle);
+        threads.push(ttr_thread);
+
+        // Then trace_triangle_n.
+        let ttn_input = TraceTriangle {
+            random_vector_variant: RandomVector::Normal,
+            seed: None,
+            gamma,
+            graph: adjacency_matrix.clone(),
+        };
+        let ttn_thread = thread::spawn(move || {
+            AlgorithmBenchmark::run(
+                ttn_bar,
+                TraceTriangle::run,
+                &ttn_input
+            ).to_records(
+                "TraceTriangleN",
+                dataset,
+                Some(gamma),
+                None,
+            )
+        });
+
+        threads.push(ttn_thread);
+
+        // Lastly EigenTriangle.
+        let max_iters: usize = 20;
+        let eigen_input = EigenTriangle {
+            maximum_iterations: max_iters,
+            graph: adjacency_matrix.clone()
+        };
+        let eigen_thread = thread::spawn(move || {
+            AlgorithmBenchmark::run(
+                eigen_bar,
+                EigenTriangle::run,
+                &eigen_input
+            ).to_records(
+                "EigenTriangle",
+                dataset,
+                None,
+                Some(max_iters)
+            )
+        });
+
+        threads.push(eigen_thread);
     }
 
     // Wait for all status bars on the multi-bar to complete.

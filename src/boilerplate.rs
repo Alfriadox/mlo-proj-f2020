@@ -15,9 +15,6 @@ pub struct Dataset {
     /// The number of nodes in the represented graph. This must be accurate
     /// for the algorithms to return accurate results.
     pub nodes: usize,
-    /// The number of edges in the represented graph. This is added directly to
-    /// the CSV file and is not used in calculations.
-    pub edges: usize,
     /// Does the CSV file have a header row with column that does not
     /// contain data?
     pub has_header_row: bool,
