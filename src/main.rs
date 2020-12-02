@@ -96,20 +96,6 @@ const DATASETS: &'static [Dataset] = &[
         has_header_row: true,
         comment_char: None,
     },
-    Dataset {
-        path: "data/CA-GrQc/CA-GrQc.txt",
-        nodes: 5_242,
-        csv_delimiter: b'\t',
-        has_header_row: false,
-        comment_char: Some(b'#')
-    },
-    Dataset {
-        path: "data/CA-AstroPh/CA-AstroPh.txt",
-        nodes: 18_772,
-        csv_delimiter: b'\t',
-        has_header_row: false,
-        comment_char: Some(b'#')
-    },
 ];
 
 /// The type used to represent graphs. This is currently an adjacency matrix
