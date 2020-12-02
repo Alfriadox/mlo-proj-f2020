@@ -6,7 +6,7 @@ use ndarray_rand::RandomExt;
 use ndarray::{Array, Array1, Array2};
 use ndarray_rand::rand_distr::{Bernoulli, StandardNormal};
 use crate::{Graph, TriangleEstimate};
-use sprs::{CsMatI, CsMat};
+use sprs::CsMat;
 use std::ops::Div;
 use nalgebra::{DMatrix, DVector, DMatrixSlice, DVectorSlice};
 use eigenvalues::algorithms::lanczos::HermitianLanczos;
@@ -22,19 +22,19 @@ use eigenvalues::matrix_operations::MatrixOperations;
 /// Returns the number of triangles in the graph as an unsigned integer.
 pub fn spectral_count(graph: &Graph) -> TriangleEstimate {
     // Convert the cell type from booleans to unsigned integers.
-    let int_graph: CsMatI<u32, usize> = graph.map(|c| if *c {1} else {0});
+    let int_graph: CsMat<u64> = graph.map(|c| if *c {1} else {0});
     // Cube the graph's adjacency matrix.
-    let cubed: CsMatI<u32, usize> = &(&int_graph * &int_graph) * &int_graph;
+    let cubed: CsMat<u64> = &(&int_graph * &int_graph) * &int_graph;
 
     // Take the diagonal sum using an iterator.
-    let diag_sum: u32 = cubed.iter()
+    let diag_sum: u64 = cubed.iter()
         // filter for diagonal cells only
         .filter(|(_, (r, c))| r == c)
         // take the sum
         .fold(0, |acc, (item, _)| acc+item);
 
     // return the sum of the diagonal divided by 6.
-    return diag_sum/6;
+    return (diag_sum/6) as TriangleEstimate;
 }
 
 /// The options available for generating random vectors in the TraceTriangle

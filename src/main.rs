@@ -103,8 +103,8 @@ const DATASETS: &'static [Dataset] = &[
 pub type Graph = CsMat<bool>;
 
 /// The type used to represent triangle counts (or estimates). This is currently
-/// a 32-bit unsigned integer.
-pub type TriangleEstimate = u32;
+/// a 128-bit unsigned integer.
+pub type TriangleEstimate = u128;
 
 fn main() {
     // create thread aware progressbar manager.
@@ -184,7 +184,6 @@ fn main() {
                     spectral_count,
                     &spectral_input
                 ));
-
             // Set the gamma for TraceTriangle.
             let gamma = 1f64;
             // Next trace_triangle_r

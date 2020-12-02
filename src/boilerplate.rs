@@ -40,7 +40,7 @@ impl Dataset {
         // The adjacency matrix should be a square matrix of size NxN.
         let shape = (self.nodes, self.nodes);
         // we use bytes here until we do the transpose at the end.
-        let mut mat: CsMat<u8> = CsMatI::zero(shape);
+        let mut mat: CsMat<bool> = CsMatI::zero(shape);
 
         let file_reader = File::open(self.path)
             .expect("Could not open file");
@@ -59,25 +59,22 @@ impl Dataset {
             let (a, b): (usize, usize) = record.expect("Bad record");
 
             // Bounds checking.
-            if a >= mat.rows() {
+            if a >= mat.rows() || b >= mat.cols() {
                 progress_bar.println(format!("Node {} out of bounds in graph {}", a, self.path));
             }
-            if b >= mat.cols() {
+            else if b >= mat.cols() || b >= mat.rows() {
                 progress_bar.println(format!("Node {} out of bounds in graph {}", b, self.path));
             }
-
-            // Set the edge in the adjacency matrix.
-            mat.insert(a, b, 1);
+            else {
+                // Set the edge in the adjacency matrix.
+                mat.insert(a, b, true);
+                mat.insert(b, a, true);
+            }
         }
-
-        // add the adjacency matrix to the transpose of itself to add
-        // all of the opposing edges.
-        mat = &mat + &mat.transpose_view();
-
         // finish the progress bar when we are done reading.
-        progress_bar.finish();
+        progress_bar.finish_and_clear();
 
         // return the created matrix.
-        return mat.map(|e| if *e == 0 {false} else {true});
+        return mat;
     }
 }
