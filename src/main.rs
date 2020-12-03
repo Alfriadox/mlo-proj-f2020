@@ -26,7 +26,7 @@ mod algs;
 mod processing;
 
 /// The number of trials of every algorithm to run on each dataset.
-pub const TRIALS: u8 = 10;
+pub const TRIALS: u8 = 20;
 
 /// A constant array representing the datasets to test.
 /// Add or remove entries as necessary.
@@ -163,14 +163,12 @@ fn main() {
         let io_bar = make_fs_bar(dataset);
         // make a status bar for the spectral count.
         let spectral_count_bar = make_alg_bar(dataset, "Spectral Count");
-        /*
         // make bar for trace_triangles using the Rademacher method.
         let ttr_bar = make_alg_bar(dataset, "TraceTrianglesR");
         // make bar for trace_triangles using the Normal/ gaussian method.
         let ttn_bar = make_alg_bar(dataset, "TraceTrianglesN");
         // Make a progress bar for the EigenTriangle algorithm.
         let eigen_bar = make_alg_bar(dataset, "EigenTriangle");
-         */
 
         // Spawn a child thread to operate on the dataset.
         let join_handle: JoinHandle<Vec<BenchmarkRecord>> = thread::spawn(move || {
@@ -186,7 +184,6 @@ fn main() {
                     spectral_count,
                     &spectral_input
                 ));
-            /*
             // Set the gamma for TraceTriangle.
             let gamma = 1f64;
             // Next trace_triangle_r
@@ -230,13 +227,11 @@ fn main() {
                     &eigen_input
                 ));
 
-            */
             // Join the spawned threads. Convert the results to serializable
             // records, and collect all of those into one list.
             let mut results: Vec<BenchmarkRecord> = Vec::new();
-            /*
-            let mut ttr: Vec<BenchmarkRecord> = ttr_thread
 
+            let mut ttr: Vec<BenchmarkRecord> = ttr_thread
                 .join()
                 .expect("TTR failed")
                 .to_records(
@@ -269,7 +264,6 @@ fn main() {
                 );
             results.append(&mut eigen);
 
-             */
             let mut spectral_count: Vec<BenchmarkRecord> = spectral_thread
                 .join()
                 .expect("Spectral count failed")
