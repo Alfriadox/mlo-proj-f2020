@@ -26,7 +26,7 @@ mod algs;
 mod processing;
 
 /// The number of trials of every algorithm to run on each dataset.
-pub const TRIALS: u8 = 20;
+pub const TRIALS: u8 = 10;
 
 /// A constant array representing the datasets to test.
 /// Add or remove entries as necessary.
@@ -171,7 +171,7 @@ fn main() {
         // Make a progress bar for the EigenTriangle algorithm.
         let eigen_bar = make_alg_bar(dataset, "EigenTriangle");
          */
-        
+
         // Spawn a child thread to operate on the dataset.
         let join_handle: JoinHandle<Vec<BenchmarkRecord>> = thread::spawn(move || {
             // Load the dataset from a the filesystem into an adjacency matrix.
