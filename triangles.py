@@ -3,6 +3,8 @@
 # IMPORTS
 import numpy as np
 import networkx as nx
+import csv
+import time
 
 
 def load_graph(path, data=True, delim=None): 
@@ -118,11 +120,11 @@ def triangletrace(A, gamma, vec='R', seed=None, interval=None):
 
 
 def main(): 
-    #""" 
+    """ 
     path = "datasets/deezer_clean_data/HR_edges.csv" 
     # CSV has headers and comma delimiters (instead of spaces)
     A = load_graph( path, data=[('node1',int),('node2',int)], delim=',' ) 
-    #"""
+    """
     """
     path = "datasets/facebook/0.edges" 
     A = load_graph( path )
@@ -131,7 +133,52 @@ def main():
     path = "datasets/test.txt" 
     A = load_graph( path )
     """
+    #"""
+    path_tw = "data/twitch/" 
+    path_wiki = "data/wikipedia/" 
+    paths = [path_tw+"ES/musae_ES_edges.csv", 
+             path_tw+"ENGB/musae_ENGB_edges.csv", 
+             path_tw+"DE/musae_DE_edges.csv", 
+             path_tw+"FR/musae_FR_edges.csv", 
+             path_tw+"PTBR/musae_PTBR_edges.csv", 
+             path_tw+"RU/musae_RU_edges.csv", 
+             path_wiki+"chameleon/musae_chameleon_edges.csv", 
+             path_wiki+"crocodile/musae_crocodile_edges.csv", 
+             path_wiki+"squirrel/musae_squirrel_edges.csv" 
+            ] 
 
+    # CSV has headers and comma delimiters (instead of spaces)
+    counts = []
+    rts = []
+
+    for i in range(9):
+        if i < 6:
+            A = load_graph( paths[i], data=[('from',int),('to',int)], delim=',' ) 
+        else:
+            A = load_graph( paths[i], data=[('id1',int),('id2',int)], delim=',' ) 
+        s = time.time() * 1e6
+        count = gt_count(A)
+        e = time.time() * 1e6
+        counts.append(count)
+        rts.append(e-s)
+
+    with open('spectral_counts.csv', 'w', newline='') as csvfile:
+        fieldnames = ['alg_name', 'trial_num', 'runtime', 'result', 'ds_path']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames) 
+
+        writer.writeheader()
+        for c,rt,path in zip(counts,rts,paths):
+            writer.writerow({'alg_name':'SpectralCount', 
+                             'trial_num':0,
+                             'runtime':rt,
+                             'result':c,
+                             'ds_path':path
+                            })
+    #"""
+
+
+
+    """
     seed = np.random.randint(2**32 - 1)
 
     print( 'SHAPE: {}\nTRIANGLES: {}\nTTN: {}\nTTR: {}'.format( 
@@ -139,6 +186,7 @@ def main():
         gt_count(A), 
         triangletrace(A, 20, vec='N', seed=seed, interval=20), 
         triangletrace(A, 20, vec='R', seed=seed, interval=20) ) ) 
+    """
 
 if __name__ == '__main__': 
     main()
