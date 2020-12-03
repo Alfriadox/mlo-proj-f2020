@@ -1,0 +1,10 @@
+alg_name,trial_num,runtime,result,ds_path
+SpectralCount,0,1180339.75,200144,data/twitch/ES/musae_ES_edges.csv
+SpectralCount,0,790097.5,29266,data/twitch/ENGB/musae_ENGB_edges.csv
+SpectralCount,0,6467673.25,603088,data/twitch/DE/musae_DE_edges.csv
+SpectralCount,0,3256859.25,422694,data/twitch/FR/musae_FR_edges.csv
+SpectralCount,0,293435.5,173510,data/twitch/PTBR/musae_PTBR_edges.csv
+SpectralCount,0,780704.0,71445,data/twitch/RU/musae_RU_edges.csv
+SpectralCount,0,134455.75,345064,data/wikipedia/chameleon/musae_chameleon_edges.csv
+SpectralCount,0,5962960.5,630879,data/wikipedia/crocodile/musae_crocodile_edges.csv
+SpectralCount,0,2935568.0,9604843,data/wikipedia/squirrel/musae_squirrel_edges.csv
